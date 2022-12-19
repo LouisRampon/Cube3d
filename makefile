@@ -6,7 +6,7 @@
 #    By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/25 11:47:12 by lorampon          #+#    #+#              #
-#    Updated: 2022/12/12 11:05:24 by lorampon         ###   ########.fr        #
+#    Updated: 2022/12/12 16:45:43 by lorampon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,10 +15,10 @@ NAME = cub3d
 SRCS_MAIN_WITHOUT_PATH = main.c	\
 
 
-SRCS_PARSING_WITHOUT_PATH =
+SRCS_PARSING_WITHOUT_PATH = 
 
 
-SRCS_EXEC_WITHOUT_PATH = 
+SRCS_EXEC_WITHOUT_PATH = move.c \
 							
 SRCS_UTILS_WITHOUT_PATH =	
 
@@ -61,7 +61,7 @@ HEADER =	$(addprefix $(PATH_TO_HEADER), $(HEADER_WITHOUT_PATH))
 
 	######### COMMANDS ###########
 CC = gcc
-CFLAGS	= -Wall -Wextra -Werror #-fsanitize=address -g3
+CFLAGS	= -Wall -Wextra -Werror -fsanitize=address -g3
 CFLAGS_MLX = -framework OpenGL -framework AppKit
 RM = rm -rf
 PATH_TO_MLX = ./mlx/
