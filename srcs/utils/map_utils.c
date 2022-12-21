@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:46:29 by lorampon          #+#    #+#             */
-/*   Updated: 2022/12/19 15:50:43 by lorampon         ###   ########.fr       */
+/*   Updated: 2022/12/21 11:52:34 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,14 @@ void ft_2d_map(t_data *data)
 	int	y;
 
 	y = 0;
-	while (y < data->map.height)
+	while (y < data->map->height)
 	{
 		x = 0;
-		while (x < data->map.width)
+		while (x < data->map->width)
 		{	
-			if (data->map.map[y][x] == '1')
+			if (data->map->map[y][x] == '1')
 				data->img = ft_draw_square(data, WHITE, x ,y);
-			else if (data->map.map[y][x] == '0')
+			else if (data->map->map[y][x] == '0')
 				data->img = ft_draw_square(data, GREY, x ,y);
 			x++;
 		}
@@ -85,29 +85,29 @@ void ft_2d_map(t_data *data)
 	}
 }
 
-t_map	init_map(t_data *data)
-{
-	t_map map;
-	char **map1;
-	(void)data;
-	int i;
-	int j;
-	j = 0;
-	map1 = malloc(sizeof(map1) * 8 + 1);
-	while (j < 8)
-	{
-		i = 0;
-		map1[j] = malloc(sizeof(char) * 16 + 1);
-		while (i < 16)
-		{
-			map1[j][i] = '0';
-			i++;
-		}
-		j++;
-	}
-	map1[5][7] = '1';
-	map.map = map1;
-	map.height = 8;
-	map.width = 16;
-	return (map);
-}
+// t_map	*init_map(t_data *data)
+// {
+// 	t_map map;
+// 	char **map1;
+// 	(void)data;
+// 	int i;
+// 	int j;
+// 	j = 0;
+// 	map1 = malloc(sizeof(map1) * 8 + 1);
+// 	while (j < 8)
+// 	{
+// 		i = 0;
+// 		map1[j] = malloc(sizeof(char) * 16 + 1);
+// 		while (i < 16)
+// 		{
+// 			map1[j][i] = '0';
+// 			i++;
+// 		}
+// 		j++;
+// 	}
+// 	map1[5][7] = '1';
+// 	map.map = map1;
+// 	map.height = 8;
+// 	map.width = 16;
+// 	return (*map);
+// }

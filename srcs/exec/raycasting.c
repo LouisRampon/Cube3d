@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 11:33:09 by lorampon          #+#    #+#             */
-/*   Updated: 2022/12/21 11:35:17 by lorampon         ###   ########.fr       */
+/*   Updated: 2022/12/21 13:14:20 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_image	ft_put_line(t_data *data, t_vector2f end, int color)
 	}
 	return (data->img);
 }
+
 t_vector2f draw_ray_vertical(t_data *data)
 {
 	t_vector2f ray;
@@ -72,14 +73,13 @@ t_vector2f draw_ray_vertical(t_data *data)
 	map_pos.y = (int)ray.y / 64;
 	while (map_pos.x < 16 && map_pos.y < 8 && map_pos.x >= 0 && map_pos.y >= 0)
 	{
-		if (data->map.map[map_pos.y][map_pos.x] == '1')
+		if (data->map->map[map_pos.y][map_pos.x] == '1')
 			return (ray);
 		ray.x += offset.x;
 		ray.y += offset.y;
 		map_pos.x = (int)ray.x / 64;
 		map_pos.y = (int)ray.y / 64;
 	}
-	printf("x vert = %f , y vert = %f\n", ray.x, ray.y);
 	return (ray);
 }
 
@@ -121,14 +121,13 @@ t_vector2f draw_ray_horizontal(t_data *data)
 	map_pos.y = (int)ray.y / 64;
 	while (map_pos.x < 16 && map_pos.y < 8 && map_pos.x >= 0 && map_pos.y >= 0)
 	{
-		if (data->map.map[map_pos.y][map_pos.x] == '1')
+		if (data->map->map[map_pos.y][map_pos.x] == '1')
 			return (ray);
 		ray.x += offset.x;
 		ray.y += offset.y;
 		map_pos.x = (int)ray.x / 64;
 		map_pos.y = (int)ray.y / 64;
 	}
-	printf("x hoz = %f , y hoz = %f\n", ray.x, ray.y);
 	return (ray);
 }
 
@@ -144,8 +143,9 @@ t_image	farthest_ray(t_data *data, t_vector2f ray_v, t_vector2f ray_h)
 	temp = (data->pos.x - ray_h.x) * (data->pos.x - ray_h.x);	
 	temp = (data->pos.y - ray_h.y) * (data->pos.y - ray_h.y) + temp;
 	h = sqrt((temp));
+	//printf("x vert = %f, y vert = %f\n x hoz = %f, y hoz = %f\n h = %f, v = %f", ray.x, ray.y);
 	if (h > v)
-		return (ft_put_line(data, ray_h, RED));
-	else
 		return (ft_put_line(data, ray_v, RED));
+	else
+		return (ft_put_line(data, ray_h, RED));
 }

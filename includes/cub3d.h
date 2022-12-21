@@ -6,17 +6,24 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 11:11:44 by lorampon          #+#    #+#             */
-/*   Updated: 2022/12/21 11:34:43 by lorampon         ###   ########.fr       */
+/*   Updated: 2022/12/21 13:19:16 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
+# include "../libft/includes/libft.h"
+# include "../includes/get_next_line.h"
 # include "../mlx/mlx.h"
+# include <stdlib.h>
+# include <stdio.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <math.h>
+
+enum args {space = ' ', wall = '1', floor1 = '0', p_north = 'N',\
+			p_south = 'S', p_east = 'E', p_west = 'W'};
 
 # define W 13
 # define A 0
@@ -34,6 +41,14 @@
 # define WHITE 0xFFFFFF
 # define BLACK 0x000000
 
+# define DR 0.0174533
+typedef struct s_arena
+{
+	size_t			size;
+	size_t			cursor;
+	void			*data;
+	struct s_arena	*next;
+}t_arena;
 typedef struct s_lst
 {
 	char			*line;
@@ -51,10 +66,23 @@ typedef struct s_vector2f
 	double y;
 }	t_vector2f;
 
+typedef struct	s_texture
+{
+	char	*north;
+	char	*west;
+	char	*east;
+	char	*south;
+	int		floor[3];
+	int		ceiling[3];
+	int 	gnl_index;
+	int 	o_index;
+	int 	c_index;
+	int 	f_index;
+}t_texture;
 typedef struct	s_player
 {
 	t_vector2f	coord;
-	double		angle;
+	t_vector2f	dir;
 }t_player;
 typedef struct	s_map
 {
@@ -76,14 +104,37 @@ typedef struct s_data
 {
 	void	*mlx_ptr;
 	void	*mlx_win_ptr;
-	t_map	map;
+	t_map 		*map;
 	t_vector2f	pos;
 	t_vector2f	dir;
 	t_vector2d	coord;
 	double		angle;
 	t_image 	img;
-	
+	t_arena		*arena;
+	t_texture 	*tex;
 } t_data;
+
+//############### parsing ###############
+int		ft_parsing(t_data *data, char *file_name);
+int		ft_parse_line(t_texture *tx, char *str);
+void	ft_init_parse_map_struct(t_map *m);
+void	ft_init_map(t_map *map, int fd);
+void	ft_parse_map(char **map);
+
+void	ft_create_first_elem(t_lst *lst, char *str);
+void	ft_add_node_to_lst(t_lst **lst, char *str);
+void	ft_free_lst(t_lst *lst);
+t_lst	*ft_new_node(char *str);
+void	ft_last_lst_elem(t_lst **ptr);
+
+
+//############### utils  ################
+char	**ft_split_charset(char *str, char *charset);
+void	ft_free_tab(char **tab);
+void	ft_error_exit(char *str);
+int		ft_count_char(char *str, char c);
+char	**ft_list_to_tab(t_lst *lst, int width, int height);
+void	*ft_arena_alloc(t_arena *arena, size_t size);
 
 t_data	init_data(t_data *data);
 t_image	ft_put_line(t_data *data, t_vector2f end, int color);
