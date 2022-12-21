@@ -6,68 +6,22 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 10:56:31 by lorampon          #+#    #+#             */
-/*   Updated: 2022/12/19 11:56:32 by lorampon         ###   ########.fr       */
+/*   Updated: 2022/12/21 11:33:40 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = img->pixels + (y * img->line_size + x * (img->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
-}
- 
-t_image ft_grey_backgroud(t_data *data, int color)
-{
-	int	x;
-	int	y;
-	
-	x = 0;
-	y = 0;
-	while (y < 512)
-	{
-		while(x < 1024)
-		{
-			my_mlx_pixel_put(&data->img, x, y, color);
-			x++;
-		}
-		x = 0;
-		y++;
-	}
-	return (data->img);
-}
-
-t_image	ft_put_line(t_data *data, int color)
-{
-	
-	t_vector2f	delta;
-	t_vector2f	pixel;
-	int			nb_pixel;
-	
-	delta.x = 100 * cos(data->angle);
-	delta.y = 100 * sin(data->angle);
-	nb_pixel = sqrt((delta.x * delta.x) + (delta.y * delta.y));
-	delta.x /= nb_pixel;
-	delta.y /= nb_pixel;
-	pixel.x = data->pos.x;
-	pixel.y = data->pos.y;
-	while (nb_pixel)
-	{
-		my_mlx_pixel_put(&data->img, pixel.x, pixel.y, color);
-		pixel.x += delta.x;
-		pixel.y += delta.y;
-		nb_pixel--;
-	}
-	return (data->img);
-}
 
 void	ft_display(t_data *data)
 {
-	data->img = ft_grey_backgroud(data, GREY);
-	data->img = ft_put_line(data, RED);
+	t_vector2f ray_h;
+	t_vector2f ray_v;
+	//data->img = ft_grey_backgroud(data, GREY);
+	ft_2d_map(data);
+	ray_v = draw_ray_vertical(data);
+	ray_h = draw_ray_horizontal(data);
+	data->img = farthest_ray(data, ray_v, ray_h);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win_ptr, data->img.ptr, 0, 0);
 }
 
@@ -82,7 +36,12 @@ t_data	init_data(t_data *data)
 	data->pos.x = 300;
 	data->pos.y = 300;
 	data->angle = 0;
+	data->dir.x = cos(data->angle);
+	data->dir.y = sin(data->angle);
+	data->coord.x = data->pos.x / 64;
+	data->coord.y = data->pos.y / 64;
 	data->mlx_win_ptr = mlx_new_window(data->mlx_ptr, 1024,512, "cub3d");
+	data->map = init_map(data);
 	ft_display(data);
 	return (*data);
 }
