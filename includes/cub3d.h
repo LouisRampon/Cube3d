@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 11:11:44 by lorampon          #+#    #+#             */
-/*   Updated: 2022/12/21 13:19:16 by lorampon         ###   ########.fr       */
+/*   Updated: 2022/12/21 16:32:46 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ enum args {space = ' ', wall = '1', floor1 = '0', p_north = 'N',\
 
 # define WIDTH_WINDOW 1024
 # define HEIGHT_WINDOW 512
+# define FOV 64
 
 # define GREY 0x808080
 # define RED 0xFF0000
@@ -82,7 +83,7 @@ typedef struct	s_texture
 typedef struct	s_player
 {
 	t_vector2f	coord;
-	t_vector2f	dir;
+	double 		angle;
 }t_player;
 typedef struct	s_map
 {
@@ -109,9 +110,11 @@ typedef struct s_data
 	t_vector2f	dir;
 	t_vector2d	coord;
 	double		angle;
+	double		r_angle;
 	t_image 	img;
 	t_arena		*arena;
 	t_texture 	*tex;
+	int		x;
 } t_data;
 
 //############### parsing ###############
