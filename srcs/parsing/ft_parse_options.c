@@ -32,10 +32,10 @@ int	ft_only_valid_digits(char *str)
 	return (0);
 }
 
-//void	ft_convert_rgb(t_texture *tx)
-//{
-//	return ()
-//}
+unsigned int	ft_rgb(int r, int g, int b)
+{
+	return ((r * 256 * 256) + (g * 256) + b);
+}
 
 void	ft_parse_rgb(t_texture *tx, char *param, int flag)
 {

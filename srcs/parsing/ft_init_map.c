@@ -65,7 +65,7 @@ void	ft_init_map(t_map *map, int fd)
 {
 	ft_init_parse_map_struct(map);
 	ft_get_map_values(map, fd);
-	ft_parse_map(map->map);
+	ft_parse_map(map);
 	for (int i = 0; i < map->height; i++)
 		printf("%s\n", map->map[i]);
 }

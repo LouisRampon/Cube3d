@@ -62,9 +62,9 @@ t_data	init_data(t_data *data)
 	img.ptr = mlx_new_image(data->mlx_ptr, 1024, 512);
 	img.pixels = mlx_get_data_addr(img.ptr, &img.bits_per_pixel, &img.line_size, &img.endian);
 	data->img = img;
-	data->pos.x = 300;
-	data->pos.y = 300;
-	data->angle = 0;
+	data->pos.x = data->map->player.coord.x * 64 + 32;
+	data->pos.y = data->map->player.coord.y * 64 + 32;
+	data->angle = data->map->player.angle;
 	data->dir.x = cos(data->angle);
 	data->dir.y = sin(data->angle);
 	data->coord.x = (int)data->pos.x / 64;

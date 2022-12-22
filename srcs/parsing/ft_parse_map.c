@@ -63,7 +63,27 @@ void	ft_check_if_map_closed(char **map, int i, int j)
 	}
 }
 
-void	ft_parse_map(char **map)
+void	ft_get_player_pos(t_map *m, char **map, int i, int j)
+{
+	char dir;
+
+	dir = map[i][j];
+	if (dir == 'N' || dir == 'S' ||dir == 'E' ||dir == 'W')
+	{
+		m->player.coord.y = i;
+		m->player.coord.x = j;
+		if (dir == 'N')
+			m->player.angle = M_PI_2 * 3;
+		else if (dir == 'S')
+			m->player.angle = M_PI_2;
+		else if (dir == 'E')
+			m->player.angle = 0;
+		else if (dir == 'W')
+			m->player.angle = M_PI;
+	}
+}
+
+void	ft_parse_map(t_map *map)
 {
 	int		has_player;
 	int		i;
@@ -71,20 +91,23 @@ void	ft_parse_map(char **map)
 
 	i = 0;
 	has_player = 0;
-	if (ft_check_border(map) == 0)
+	if (ft_check_border(map->map) == 0)
 		ft_error_exit("Map is not closed\n");
-	while (map[i])
+	while (map->map[i])
 	{
 		j = 1;
-		while (map[i][j])
+		while (map->map[i][j])
 		{
-			if (ft_check_map_char(&map[i][j], has_player) != 0)
+			ft_get_player_pos(map, map->map, i, j);
+			ft_check_if_map_closed(map->map, i, j);
+			if (ft_check_map_char(&map->map[i][j], has_player) != 0)
 				has_player = 1;
-			ft_check_if_map_closed(map, i, j);
 			j++;
 		}
 		i++;
 	}
 	if (!has_player)
 		ft_error_exit("Error: need one player in map\n");
+	map->map[(int)map->player.coord.y][(int)map->player.coord.x] = floor1;
+	printf("coord x = %d\n coord y = %d", (int)map->player.coord.x, (int)map->player.coord.y);
 }

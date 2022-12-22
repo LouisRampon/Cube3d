@@ -43,6 +43,7 @@ enum args {space = ' ', wall = '1', floor1 = '0', p_north = 'N',\
 # define BLACK 0x000000
 
 # define DR 0.0174533
+
 typedef struct s_arena
 {
 	size_t			size;
@@ -50,11 +51,13 @@ typedef struct s_arena
 	void			*data;
 	struct s_arena	*next;
 }t_arena;
+
 typedef struct s_lst
 {
 	char			*line;
 	struct s_lst	*next;
 }t_lst;
+
 typedef struct s_vector2d
 {
 	int	x;
@@ -126,11 +129,12 @@ int		ft_parsing(t_data *data, char *file_name);
 int		ft_parse_line(t_texture *tx, char *str);
 void	ft_init_parse_map_struct(t_map *m);
 void	ft_init_map(t_map *map, int fd);
-void	ft_parse_map(char **map);
+void	ft_parse_map(t_map *map);
 
 void	ft_create_first_elem(t_lst *lst, char *str);
 void	ft_add_node_to_lst(t_lst **lst, char *str);
 void	ft_free_lst(t_lst *lst);
+unsigned int	ft_rgb(int r, int g, int b);
 t_lst	*ft_new_node(char *str);
 void	ft_last_lst_elem(t_lst **ptr);
 
