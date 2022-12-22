@@ -76,7 +76,7 @@ HEADER =	$(addprefix $(PATH_TO_HEADER), $(HEADER_WITHOUT_PATH))
 
 	######### COMMANDS ###########
 CC = gcc
-CFLAGS	= -Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS	= -Wall -Wextra -Werror #-fsanitize=address -g3
 CFLAGS_MLX = -framework OpenGL -framework AppKit
 RM = rm -rf
 PATH_TO_LIBFT = ./libft/

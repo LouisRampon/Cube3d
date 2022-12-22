@@ -79,11 +79,13 @@ typedef struct	s_texture
 	int 	c_index;
 	int 	f_index;
 }t_texture;
+
 typedef struct	s_player
 {
 	t_vector2f	coord;
 	t_vector2f	dir;
 }t_player;
+
 typedef struct	s_map
 {
 	char 		**map;
@@ -92,6 +94,7 @@ typedef struct	s_map
 	t_lst 		*lst;
 	t_player	player;
 }t_map;
+
 typedef struct s_image
 {
 	void		*ptr;
@@ -100,6 +103,7 @@ typedef struct s_image
 	int			line_size;
 	int			endian;
 }	t_image;
+
 typedef struct s_data
 {
 	void	*mlx_ptr;

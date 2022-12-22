@@ -47,8 +47,8 @@ t_data	init_data(t_data *data)
 	data->angle = 0;
 	data->dir.x = cos(data->angle);
 	data->dir.y = sin(data->angle);
-	data->coord.x = data->pos.x / 64;
-	data->coord.y = data->pos.y / 64;
+	data->coord.x = (int)data->pos.x / 64;
+	data->coord.y = (int)data->pos.y / 64;
 	data->mlx_win_ptr = mlx_new_window(data->mlx_ptr, 1024,512, "cub3d");
 	//data->map = init_map(data);
 	ft_display(data);
@@ -69,12 +69,9 @@ int main (int ac, char **av)
 	data.arena = &a;
 	data.map->lst = NULL;
 	ft_parsing(&data, av[1]);
-	
-	
 	data = init_data(&data);
 	mlx_hook(data.mlx_win_ptr, 2, 0, &ft_key_hook, &data);
 	mlx_loop(data.mlx_ptr);
-	
 	ft_free_tab(data.map->map);
 	ft_free_lst(data.map->lst);
 	return (0);
