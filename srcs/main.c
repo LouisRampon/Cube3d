@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 10:56:31 by lorampon          #+#    #+#             */
-/*   Updated: 2022/12/21 13:21:02 by lorampon         ###   ########.fr       */
+/*   Updated: 2022/12/21 16:19:42 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,40 @@ void	ft_display(t_data *data)
 {
 	t_vector2f ray_h;
 	t_vector2f ray_v;
+	int	i;
 	int fov;
 	
 	fov = 0;
 	ft_2d_map(data);
-	data->angle -= 30 * DR;
-	while (fov < 60)
+	i = 0;
+	data->x = 0;
+	while (i < FOV / 2)
 	{
+		data->angle -= DR;
+		if (data->angle <= 0)
+			data->angle = 2 * M_PI;
+		i++;
+	}
+	while (fov < FOV)
+	{
+		printf("rayon %d : angle = %f\n", fov, data->angle);
 		data->angle += DR;
+		if (data->angle >= (2 * M_PI))
+			data->angle = 0;
 		ray_v = draw_ray_vertical(data);
 		ray_h = draw_ray_horizontal(data);
 		data->img = farthest_ray(data, ray_v, ray_h);
 		fov++;
+		data->x++;
 	}
-	data->angle -= 30 * DR;
+	i = 0;
+	while (i < FOV / 2)
+	{
+		data->angle -= DR;
+		if (data->angle <= 0)
+			data->angle = 2 * M_PI;
+		i++;
+	}
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win_ptr, data->img.ptr, 0, 0);
 }
 
