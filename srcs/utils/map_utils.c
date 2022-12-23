@@ -16,7 +16,7 @@ void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x < 0 || y < 0 || x >= WIDTH_WINDOW || y >= HEIGHT_WINDOW)
+	if (x < 0 || y < 0 || x >= WIDTH_WINDOW|| y >= HEIGHT_WINDOW)
 		return ;
 	dst = img->pixels + (y * img->line_size + x * (img->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
@@ -29,9 +29,9 @@ t_image ft_grey_backgroud(t_data *data, int color)
 	
 	x = 0;
 	y = 0;
-	while (y < 512)
+	while (y < HEIGHT_WINDOW)
 	{
-		while(x < 1024)
+		while(x < WIDTH_WINDOW)
 		{
 			my_mlx_pixel_put(&data->img, x, y, color);
 			x++;
@@ -42,21 +42,44 @@ t_image ft_grey_backgroud(t_data *data, int color)
 	return (data->img);
 }
 
+t_image ft_draw_line(t_data *data, t_vector2f start, t_vector2f end, int color)
+{
+	t_vector2f	delta;
+	t_vector2f	pixel;
+	int			nb_pixel;
+	
+	delta.x = end.x - start.x;
+	delta.y = end.y - start.y;
+	nb_pixel = sqrt((delta.x * delta.x) + (delta.y * delta.y));
+	delta.x /= nb_pixel;
+	delta.y /= nb_pixel;
+	pixel.x = start.x;
+	pixel.y = start.y;
+	while (nb_pixel)
+	{
+		my_mlx_pixel_put(&data->img, pixel.x, pixel.y, color);
+		pixel.x += delta.x;
+		pixel.y += delta.y;
+		nb_pixel--;
+	}
+	return (data->img);
+}
+
 t_image	ft_draw_square(t_data *data, int color, int x, int y)
 {
 	int i;
 	int j;
 	
 	j = 0;
-	while (j < 64)
+	while (j < CUBE_SIZE)
 	{
 		i = 0;
-		while (i < 64)
+		while (i < CUBE_SIZE)
 		{	
-			if (i == 0 || j == 0 || i == 63 || j == 63)
-				my_mlx_pixel_put(&data->img, x * 64 + i, y * 64 + j, BLACK);
+			if (i == 0 || j == 0 || i == CUBE_SIZE - 1 || j == CUBE_SIZE - 1)
+				my_mlx_pixel_put(&data->img, x * CUBE_SIZE + i, y * CUBE_SIZE + j, BLACK);
 			else
-				my_mlx_pixel_put(&data->img, x * 64 + i, y * 64 + j, color);
+				my_mlx_pixel_put(&data->img, x * CUBE_SIZE + i, y * CUBE_SIZE + j, color);
 			i++;
 		}
 		j++;

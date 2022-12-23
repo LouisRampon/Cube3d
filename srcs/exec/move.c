@@ -16,16 +16,16 @@
 void	ft_move_forward(t_data *data)
 {
 	mlx_clear_window(data->mlx_ptr, data->mlx_win_ptr);
-	data->pos.x +=  2 * cos(data->angle);
-	data->pos.y +=  2 * sin(data->angle);
+	data->player.coord.x +=  2 * cos(data->player.angle);
+	data->player.coord.y +=  2 * sin(data->player.angle);
 	ft_display(data);
 }
 
 void	ft_move_backward(t_data *data)
 {
 	mlx_clear_window(data->mlx_ptr, data->mlx_win_ptr);
-	data->pos.x -= 2 * cos(data->angle);
-	data->pos.y -= 2 * sin(data->angle);
+	data->player.coord.x -= 2 * cos(data->player.angle);
+	data->player.coord.y -= 2 * sin(data->player.angle);
 	ft_display(data);
 }
 
@@ -44,22 +44,22 @@ void	ft_move_right(t_data *data)
 void	ft_turn_left(t_data *data)
 {
 	mlx_clear_window(data->mlx_ptr, data->mlx_win_ptr);
-	data->angle += 0.05;
-	if (data->angle >= (2 * M_PI))
-		data->angle = 0;
-	data->dir.x = cos(data->angle);
-	data->dir.y = sin(data->angle);
+	data->player.angle += 0.05;
+	if (data->player.angle >= (2 * M_PI))
+		data->player.angle = 0;
+	data->dir.x = cos(data->player.angle);
+	data->dir.y = sin(data->player.angle);
 	ft_display(data);
 }
 
 void	ft_turn_right(t_data *data)
 {
 	mlx_clear_window(data->mlx_ptr, data->mlx_win_ptr);
-	data->angle -= 0.05;
-	if (data->angle <= 0)
-		data->angle = 2 * M_PI;
-	data->dir.x = cos(data->angle);
-	data->dir.y = sin(data->angle);
+	data->player.angle -= 0.05;
+	if (data->player.angle <= 0)
+		data->player.angle = 2 * M_PI;
+	data->dir.x = cos(data->player.angle);
+	data->dir.y = sin(data->player.angle);
 	ft_display(data);
 }
 

@@ -34,7 +34,8 @@ enum args {space = ' ', wall = '1', floor1 = '0', p_north = 'N',\
 # define ESC 53
 
 # define WIDTH_WINDOW 1024
-# define HEIGHT_WINDOW 512
+# define HEIGHT_WINDOW 256
+# define CUBE_SIZE 32
 # define FOV 64
 
 # define GREY 0x808080
@@ -88,6 +89,7 @@ typedef struct	s_player
 {
 	t_vector2f	coord;
 	double 		angle;
+	double		dist;
 }t_player;
 
 typedef struct	s_map
@@ -113,15 +115,12 @@ typedef struct s_data
 	void	*mlx_ptr;
 	void	*mlx_win_ptr;
 	t_map 		*map;
-	t_vector2f	pos;
-	t_vector2f	dir;
-	t_vector2d	coord;
-	double		angle;
-	double		r_angle;
+	t_player	player;
+	t_player	ray;
 	t_image 	img;
 	t_arena		*arena;
 	t_texture 	*tex;
-	int		x;
+	t_vector2f	dir;
 } t_data;
 
 //############### parsing ###############
@@ -149,6 +148,7 @@ void	*ft_arena_alloc(t_arena *arena, size_t size);
 
 t_data	init_data(t_data *data);
 t_image	ft_put_line(t_data *data, t_vector2f end, int color);
+t_image ft_draw_line(t_data *data, t_vector2f start, t_vector2f end, int color);
 t_image ft_grey_backgroud(t_data *data, int color);
 void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
 
@@ -165,6 +165,6 @@ t_map	init_map(t_data *data);
 void ft_2d_map(t_data *data);
 t_vector2f draw_ray_vertical(t_data *data);
 t_vector2f draw_ray_horizontal(t_data *data);
-t_image	farthest_ray(t_data *data, t_vector2f ray_v, t_vector2f ray_h);
+t_vector2f	farthest_ray(t_data *data, t_vector2f ray_v, t_vector2f ray_h);
 
 #endif

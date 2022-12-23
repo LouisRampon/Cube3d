@@ -18,13 +18,13 @@ t_image	ft_put_line(t_data *data, t_vector2f end, int color)
 	t_vector2f	pixel;
 	int			nb_pixel;
 	
-	delta.x = end.x - data->pos.x;
-	delta.y = end.y - data->pos.y;
+	delta.x = end.x - data->player.coord.x;
+	delta.y = end.y - data->player.coord.y;
 	nb_pixel = sqrt((delta.x * delta.x) + (delta.y * delta.y));
 	delta.x /= nb_pixel;
 	delta.y /= nb_pixel;
-	pixel.x = data->pos.x;
-	pixel.y = data->pos.y;
+	pixel.x = data->player.coord.x;
+	pixel.y = data->player.coord.y;
 	while (nb_pixel)
 	{
 		my_mlx_pixel_put(&data->img, pixel.x, pixel.y, color);
@@ -42,43 +42,44 @@ t_vector2f draw_ray_vertical(t_data *data)
 	t_vector2d map_pos;
 	float ntan;
 
-	ntan = -tan(data->angle);
-	if (data->angle == M_PI_2)
+	ntan = -tan(data->ray.angle);
+	if (data->ray.angle == M_PI_2)
 	{
 		ray.y = 0;
-		ray.x = data->pos.x;
+		ray.x = data->player.coord.x;
 		return (ray);
 	}
-	else if (data->angle == M_PI_2 * 3)
+	else if (data->ray.angle == M_PI_2 * 3)
 	{
 		ray.y = 0;
-		ray.x = data->pos.x;	
+		ray.x = data->player.coord.x;	
 		return (ray);	
 	}
-	else if (data->angle > M_PI_2 && data->angle < M_PI_2 * 3)
+	else if (data->ray.angle > M_PI_2 && data->ray.angle < M_PI_2 * 3)
 	{
-		ray.x = (((int)data->pos.x>>6)<<6)-0.0001;
-		ray.y = (data->pos.x - ray.x) * ntan + data->pos.y;
-		offset.x = -64;
+		ray.x = (((int)data->player.coord.x>>5)<<5)-0.0001;
+		ray.y = (data->player.coord.x - ray.x) * ntan + data->player.coord.y;
+		offset.x = -CUBE_SIZE;
 		offset.y = -offset.x * ntan;
 	}
-	else if (data->angle < M_PI_2 || data->angle > M_PI_2 * 3)
+	else if (data->ray.angle < M_PI_2 || data->ray.angle > M_PI_2 * 3)
 	{
-		ray.x = (((int)data->pos.x>>6)<<6)+ 64;
-		ray.y = (data->pos.x - ray.x) * ntan + data->pos.y;
-		offset.x = 64;
+		ray.x = (((int)data->player.coord.x>>5)<<5)+ CUBE_SIZE;
+		ray.y = (data->player.coord.x - ray.x) * ntan + data->player.coord.y;
+		offset.x = CUBE_SIZE;
 		offset.y = -offset.x * ntan;	
 	}
-	map_pos.x = (int)ray.x / 64;
-	map_pos.y = (int)ray.y / 64;
-	while (map_pos.x < 16 && map_pos.y < 8 && map_pos.x > 0 && map_pos.y > 0)
+	map_pos.x = (int)ray.x / CUBE_SIZE;
+	map_pos.y = (int)ray.y / CUBE_SIZE;
+	while (map_pos.x < data->map->width && map_pos.y < data->map->height
+			&& map_pos.x > 0 && map_pos.y > 0)
 	{
 		if (data->map->map[map_pos.y][map_pos.x] == '1')
 			return (ray);
 		ray.x += offset.x;
 		ray.y += offset.y;
-		map_pos.x = (int)ray.x / 64;
-		map_pos.y = (int)ray.y / 64;
+		map_pos.x = (int)ray.x / CUBE_SIZE;
+		map_pos.y = (int)ray.y / CUBE_SIZE;
 	}
 	return (ray);
 }
@@ -90,62 +91,69 @@ t_vector2f draw_ray_horizontal(t_data *data)
 	t_vector2d map_pos;
 	float atan;
 
-	atan = -1/tan(data->angle);
-	if (data->angle == 0)
+	atan = -1/tan(data->ray.angle);
+	if (data->ray.angle == 0)
 	{
 		ray.x = WIDTH_WINDOW - 1;
-		ray.y = data->pos.y;
+		ray.y = data->player.coord.y;
 		return (ray);
 	}
-	else if (data->angle == M_PI)
+	else if (data->ray.angle == M_PI)
 	{
 		ray.x = 0;
-		ray.y = data->pos.y;	
+		ray.y = data->player.coord.y;	
 		return (ray);	
 	}
-	else if (data->angle > M_PI)
+	else if (data->ray.angle > M_PI)
 	{
-		ray.y = (((int)data->pos.y>>6)<<6)-0.0001;
-		ray.x = (data->pos.y - ray.y) * atan + data->pos.x;
-		offset.y = -64;
+		ray.y = (((int)data->player.coord.y>>5)<<5)-0.0001;
+		ray.x = (data->player.coord.y - ray.y) * atan + data->player.coord.x;
+		offset.y = -CUBE_SIZE;
 		offset.x = -offset.y * atan;
 	}
-	else if (data->angle < M_PI)
+	else if (data->ray.angle < M_PI)
 	{
-		ray.y = (((int)data->pos.y>>6)<<6)+ 64;
-		ray.x = (data->pos.y - ray.y) * atan + data->pos.x;
-		offset.y = 64;
+		ray.y = (((int)data->player.coord.y>>5)<<5)+ CUBE_SIZE;
+		ray.x = (data->player.coord.y - ray.y) * atan + data->player.coord.x;
+		offset.y = CUBE_SIZE;
 		offset.x = -offset.y * atan;	
 	}
-	map_pos.x = (int)ray.x / 64;
-	map_pos.y = (int)ray.y / 64;
-	while (map_pos.x < 16 && map_pos.y < 8 && map_pos.x > 0 && map_pos.y > 0)
+	map_pos.x = (int)ray.x / CUBE_SIZE;
+	map_pos.y = (int)ray.y / CUBE_SIZE;
+	while (map_pos.x < data->map->width && map_pos.y < data->map->height 
+			&& map_pos.x > 0 && map_pos.y > 0)
 	{
 		if (data->map->map[map_pos.y][map_pos.x] == '1')
 			return (ray);
 		ray.x += offset.x;
 		ray.y += offset.y;
-		map_pos.x = (int)ray.x / 64;
-		map_pos.y = (int)ray.y / 64;
+		map_pos.x = (int)ray.x / CUBE_SIZE;
+		map_pos.y = (int)ray.y / CUBE_SIZE;
 	}
 	return (ray);
 }
 
-t_image	farthest_ray(t_data *data, t_vector2f ray_v, t_vector2f ray_h)
+t_vector2f	farthest_ray(t_data *data, t_vector2f ray_v, t_vector2f ray_h)
 {
 	double h;
 	double v;
 	double temp;
 
-	temp = (data->pos.x - ray_v.x) * (data->pos.x - ray_v.x);	
-	temp = (data->pos.y - ray_v.y) * (data->pos.y - ray_v.y) + temp;
+	temp = (data->player.coord.x - ray_v.x) * (data->player.coord.x - ray_v.x);	
+	temp = (data->player.coord.y - ray_v.y) * (data->player.coord.y - ray_v.y) + temp;
 	v = sqrt((temp));
-	temp = (data->pos.x - ray_h.x) * (data->pos.x - ray_h.x);	
-	temp = (data->pos.y - ray_h.y) * (data->pos.y - ray_h.y) + temp;
+	temp = (data->player.coord.x - ray_h.x) * (data->player.coord.x - ray_h.x);	
+	temp = (data->player.coord.y - ray_h.y) * (data->player.coord.y - ray_h.y) + temp;
 	h = sqrt((temp));
 	//printf("x vert = %f, y vert = %f\n x hoz = %f, y hoz = %f\n h = %f, v = %f\n", ray_v.x, ray_v.y, ray_h.x, ray_h.y, h, v);
 	if (h > v)
-		return (ft_put_line(data, ray_v, RED));
+	{
+		data->ray.dist = v;
+		return (ray_v);
+	}
 	else
-		return (ft_put_line(data, ray_h, RED));
+	{
+		data->ray.dist = h;
+		return (ray_h);
+	}
 }

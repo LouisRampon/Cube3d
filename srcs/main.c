@@ -12,44 +12,61 @@
 
 #include "../includes/cub3d.h"
 
+t_image ft_draw_rect(t_data *data, double lineH, double offsetx)
+{
+	int	x;
+	int	y;
+	int	offsety;
+
+	y = 0;
+	offsety = 128 - lineH/2;
+	while (y < lineH)
+	{
+		x = 0;
+		while(x < 8)
+		{
+			my_mlx_pixel_put(&data->img, offsetx + x, offsety + y, RED);
+			x++;
+		}
+		y++;
+	}
+	return (data->img);
+}
 
 void	ft_display(t_data *data)
 {
-	t_vector2f ray_h;
-	t_vector2f ray_v;
-	int	i;
 	int fov;
+	double lineH;
+	double camera_angle;
 	
 	fov = 0;
+	data->img = ft_grey_backgroud(data, GREY);
 	ft_2d_map(data);
-	i = 0;
-	data->x = 0;
-	while (i < FOV / 2)
-	{
-		data->angle -= DR;
-		if (data->angle <= 0)
-			data->angle = 2 * M_PI;
-		i++;
-	}
+	data->ray = data->player;
+	data->ray.angle = data->ray.angle - ((FOV / 2) * DR);
+	if (data->ray.angle >= 2 * M_PI)
+		data->ray.angle -= 2 * M_PI;
+	if (data->ray.angle <= 0)
+		data->ray.angle += 2 * M_PI;
 	while (fov < FOV)
 	{
-		printf("rayon %d : angle = %f\n", fov, data->angle);
-		data->angle += DR;
-		if (data->angle >= (2 * M_PI))
-			data->angle = 0;
-		ray_v = draw_ray_vertical(data);
-		ray_h = draw_ray_horizontal(data);
-		data->img = farthest_ray(data, ray_v, ray_h);
+		printf("rayon %d : angle = %f\n", fov, data->ray.angle);
+		data->ray.angle += DR;
+		if (data->ray.angle >= (2 * M_PI))
+			data->ray.angle = 0;
+		data->ray.coord = farthest_ray(data, draw_ray_horizontal(data), draw_ray_vertical(data));		
+		data->img = ft_draw_line(data, data->player.coord, data->ray.coord, RED);
+		camera_angle = data->player.angle - data->ray.angle;
+		if (camera_angle > (2 * M_PI))
+			camera_angle -= 2 * M_PI;
+		if (camera_angle < 0)
+			camera_angle += 2 * M_PI;
+		data->ray.dist = data->ray.dist * cos(camera_angle);
+		lineH = (CUBE_SIZE * 512) / data->ray.dist;
+		if (lineH > 512)
+			lineH = 512;
+		data->img = ft_draw_rect(data, lineH, 512 + fov * 8);
 		fov++;
-		data->x++;
-	}
-	i = 0;
-	while (i < FOV / 2)
-	{
-		data->angle -= DR;
-		if (data->angle <= 0)
-			data->angle = 2 * M_PI;
-		i++;
 	}
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win_ptr, data->img.ptr, 0, 0);
 }
@@ -59,18 +76,17 @@ t_data	init_data(t_data *data)
 	t_image img;
 	
 	data->mlx_ptr = mlx_init();
-	img.ptr = mlx_new_image(data->mlx_ptr, 1024, 512);
+	img.ptr = mlx_new_image(data->mlx_ptr, WIDTH_WINDOW * 2, HEIGHT_WINDOW);
 	img.pixels = mlx_get_data_addr(img.ptr, &img.bits_per_pixel, &img.line_size, &img.endian);
 	data->img = img;
-	data->pos.x = data->map->player.coord.x * 64 + 32;
-	data->pos.y = data->map->player.coord.y * 64 + 32;
-	data->angle = data->map->player.angle;
-	data->dir.x = cos(data->angle);
-	data->dir.y = sin(data->angle);
-	data->coord.x = (int)data->pos.x / 64;
-	data->coord.y = (int)data->pos.y / 64;
-	data->mlx_win_ptr = mlx_new_window(data->mlx_ptr, 1024,512, "cub3d");
-	//data->map = init_map(data);
+	data->player.coord.x = data->map->player.coord.x * CUBE_SIZE + CUBE_SIZE / 2;
+	data->player.coord.y = data->map->player.coord.y * CUBE_SIZE + CUBE_SIZE / 2;
+	data->player.angle = data->map->player.angle;
+	data->dir.x = cos(data->player.angle);
+	data->dir.y = sin(data->player.angle);
+	// data->coord.x = (int)data->pos.x / CUBE_SIZE;
+	// data->coord.y = (int)data->pos.y / CUBE_SIZE;
+	data->mlx_win_ptr = mlx_new_window(data->mlx_ptr, WIDTH_WINDOW, HEIGHT_WINDOW, "cub3d");
 	ft_display(data);
 	return (*data);
 }
