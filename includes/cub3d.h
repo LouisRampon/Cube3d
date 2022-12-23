@@ -33,6 +33,11 @@ enum args {space = ' ', wall = '1', floor1 = '0', p_north = 'N',\
 # define E 14
 # define ESC 53
 
+# define NORTH 0
+# define SOUTH 1
+# define EAST 2
+# define WEST 3
+
 # define WIDTH_WINDOW 1024
 # define HEIGHT_WINDOW 256
 # define CUBE_SIZE 32
@@ -42,6 +47,9 @@ enum args {space = ' ', wall = '1', floor1 = '0', p_north = 'N',\
 # define RED 0xFF0000
 # define WHITE 0xFFFFFF
 # define BLACK 0x000000
+# define ORANGE 0xFF4500
+# define ORANGE2 0xFF4900
+# define ORANGE3 0xFF4700
 
 # define DR 0.0174533
 
@@ -85,11 +93,18 @@ typedef struct	s_texture
 	int 	f_index;
 }t_texture;
 
-typedef struct	s_player
+typedef struct	s_ray
 {
 	t_vector2f	coord;
 	double 		angle;
 	double		dist;
+	int			side;
+}t_ray;
+
+typedef struct	s_player
+{
+	t_vector2f	coord;
+	double 		angle;
 }t_player;
 
 typedef struct	s_map
@@ -116,7 +131,7 @@ typedef struct s_data
 	void	*mlx_win_ptr;
 	t_map 		*map;
 	t_player	player;
-	t_player	ray;
+	t_ray		ray;
 	t_image 	img;
 	t_arena		*arena;
 	t_texture 	*tex;
@@ -163,8 +178,8 @@ void	ft_display(t_data *data);
 
 t_map	init_map(t_data *data);
 void ft_2d_map(t_data *data);
-t_vector2f draw_ray_vertical(t_data *data);
-t_vector2f draw_ray_horizontal(t_data *data);
-t_vector2f	farthest_ray(t_data *data, t_vector2f ray_v, t_vector2f ray_h);
+t_ray draw_ray_vertical(t_data *data);
+t_ray draw_ray_horizontal(t_data *data);
+t_ray	farthest_ray(t_data *data, t_ray ray_v, t_ray ray_h);
 
 #endif

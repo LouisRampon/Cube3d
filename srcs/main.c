@@ -20,12 +20,20 @@ t_image ft_draw_rect(t_data *data, double lineH, double offsetx)
 
 	y = 0;
 	offsety = 128 - lineH/2;
+	printf("side =%d\n", data->ray.side);
 	while (y < lineH)
 	{
 		x = 0;
 		while(x < 8)
 		{
-			my_mlx_pixel_put(&data->img, offsetx + x, offsety + y, RED);
+			if (data->ray.side == 1)
+				my_mlx_pixel_put(&data->img, offsetx + x, offsety + y, RED);
+			else if (data->ray.side == 2)
+				my_mlx_pixel_put(&data->img, offsetx + x, offsety + y, ORANGE);
+			else if (data->ray.side == 3)
+				my_mlx_pixel_put(&data->img, offsetx + x, offsety + y, ORANGE2);
+			else 
+				my_mlx_pixel_put(&data->img, offsetx + x, offsety + y, ORANGE3);
 			x++;
 		}
 		y++;
@@ -42,7 +50,7 @@ void	ft_display(t_data *data)
 	fov = 0;
 	data->img = ft_grey_backgroud(data, GREY);
 	ft_2d_map(data);
-	data->ray = data->player;
+	data->ray.angle = data->player.angle;
 	data->ray.angle = data->ray.angle - ((FOV / 2) * DR);
 	if (data->ray.angle >= 2 * M_PI)
 		data->ray.angle -= 2 * M_PI;
@@ -54,7 +62,7 @@ void	ft_display(t_data *data)
 		data->ray.angle += DR;
 		if (data->ray.angle >= (2 * M_PI))
 			data->ray.angle = 0;
-		data->ray.coord = farthest_ray(data, draw_ray_horizontal(data), draw_ray_vertical(data));		
+		data->ray = farthest_ray(data, draw_ray_horizontal(data), draw_ray_vertical(data));		
 		data->img = ft_draw_line(data, data->player.coord, data->ray.coord, RED);
 		camera_angle = data->player.angle - data->ray.angle;
 		if (camera_angle > (2 * M_PI))
@@ -65,6 +73,7 @@ void	ft_display(t_data *data)
 		lineH = (CUBE_SIZE * 512) / data->ray.dist;
 		if (lineH > 512)
 			lineH = 512;
+		printf("lineH =%f\n", lineH);
 		data->img = ft_draw_rect(data, lineH, 512 + fov * 8);
 		fov++;
 	}
