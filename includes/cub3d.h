@@ -42,6 +42,8 @@ enum args {space = ' ', wall = '1', floor1 = '0', p_north = 'N',\
 # define HEIGHT_WINDOW 256
 # define CUBE_SIZE 32
 # define FOV 64
+# define MS 5
+# define TS 0.11
 
 # define GREY 0x808080
 # define RED 0xFF0000

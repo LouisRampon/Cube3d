@@ -13,38 +13,75 @@
 
 #include "../../includes/cub3d.h"
 
+int	check_collision(t_data *data, t_vector2f pos)
+{
+	t_vector2d temp;
+
+	temp.x = (int)pos.x / CUBE_SIZE;
+	temp.y = (int)pos.y / CUBE_SIZE;
+	printf("x = %d, y = %d\n", temp.x, temp.y);
+	if (data->map->map[temp.y][temp.x] == '1')
+		return (1);
+	else
+		return (0);
+
+}
 void	ft_move_forward(t_data *data)
 {
+	t_vector2f	temp;
+
+	temp.x = data->player.coord.x + MS * cos(data->player.angle);
+	temp.y = data->player.coord.y + MS * sin(data->player.angle);
+	if (check_collision(data, temp))
+		return ;
 	mlx_clear_window(data->mlx_ptr, data->mlx_win_ptr);
-	data->player.coord.x +=  2 * cos(data->player.angle);
-	data->player.coord.y +=  2 * sin(data->player.angle);
+	data->player.coord = temp;
 	ft_display(data);
 }
 
 void	ft_move_backward(t_data *data)
 {
+	t_vector2f	temp;
+
+	temp.x = data->player.coord.x - MS * cos(data->player.angle);
+	temp.y = data->player.coord.y - MS * sin(data->player.angle);
+	if (check_collision(data, temp))
+		return ;
 	mlx_clear_window(data->mlx_ptr, data->mlx_win_ptr);
-	data->player.coord.x -= 2 * cos(data->player.angle);
-	data->player.coord.y -= 2 * sin(data->player.angle);
+	data->player.coord = temp;
 	ft_display(data);
 }
 
 void	ft_move_left(t_data *data)
 {
+	t_vector2f	temp;
+
+	temp.x = data->player.coord.x + MS * cos(data->player.angle - M_PI_2);
+	temp.y = data->player.coord.y - MS * sin(data->player.angle + M_PI_2);
+	if (check_collision(data, temp))
+		return ;
 	mlx_clear_window(data->mlx_ptr, data->mlx_win_ptr);
+	data->player.coord = temp;
 	ft_display(data);
 }
 
 void	ft_move_right(t_data *data)
 {
+	t_vector2f	temp;
+
+	temp.x = data->player.coord.x - MS * cos(data->player.angle - M_PI_2);
+	temp.y = data->player.coord.y + MS * sin(data->player.angle + M_PI_2);
+	if (check_collision(data, temp))
+		return ;
 	mlx_clear_window(data->mlx_ptr, data->mlx_win_ptr);
+	data->player.coord = temp;
 	ft_display(data);
 }
 
 void	ft_turn_left(t_data *data)
 {
 	mlx_clear_window(data->mlx_ptr, data->mlx_win_ptr);
-	data->player.angle += 0.05;
+	data->player.angle += TS;
 	if (data->player.angle >= (2 * M_PI))
 		data->player.angle = 0;
 	data->dir.x = cos(data->player.angle);
@@ -55,7 +92,7 @@ void	ft_turn_left(t_data *data)
 void	ft_turn_right(t_data *data)
 {
 	mlx_clear_window(data->mlx_ptr, data->mlx_win_ptr);
-	data->player.angle -= 0.05;
+	data->player.angle -= TS;
 	if (data->player.angle <= 0)
 		data->player.angle = 2 * M_PI;
 	data->dir.x = cos(data->player.angle);
@@ -63,6 +100,11 @@ void	ft_turn_right(t_data *data)
 	ft_display(data);
 }
 
+void	ft_exit(t_data *data)
+{
+	(void)data;
+	exit(0);
+}
 int	ft_key_hook(int keycode, t_data *data)
 {
 	if (keycode == W)
@@ -77,5 +119,7 @@ int	ft_key_hook(int keycode, t_data *data)
 		ft_turn_left(data);
 	else if (keycode == E)
 		ft_turn_right(data);
+	else if (keycode == ESC)
+		ft_exit(data);
 	return (0);
 }
