@@ -19,7 +19,7 @@ int	check_collision(t_data *data, t_vector2f pos)
 
 	temp.x = (int)pos.x / CUBE_SIZE;
 	temp.y = (int)pos.y / CUBE_SIZE;
-	printf("x = %d, y = %d\n", temp.x, temp.y);
+	//printf("x = %d, y = %d\n", temp.x, temp.y);
 	if (data->map->map[temp.y][temp.x] == '1')
 		return (1);
 	else

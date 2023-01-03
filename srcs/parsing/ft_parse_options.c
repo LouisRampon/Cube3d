@@ -66,6 +66,7 @@ void	ft_parse_rgb(t_texture *tx, char *param, int flag)
 		tx->floor[2] = (int)ft_atoi(tab[2]);
 		tx->f_index = 1;
 	}
+	free(param);
 	ft_free_tab(tab);
 }
 
