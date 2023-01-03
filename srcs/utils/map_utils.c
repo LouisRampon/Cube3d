@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:46:29 by lorampon          #+#    #+#             */
-/*   Updated: 2023/01/03 16:53:39 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/03 19:07:27 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,111 +21,8 @@ void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
 	dst = img->pixels + (y * img->line_size + x * (img->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
- 
-t_image ft_grey_backgroud(t_data *data, int color)
-{
-	int	x;
-	int	y;
-	
-	x = 0;
-	y = 0;
-	while (y < HEIGHT_WINDOW)
-	{
-		while(x < WIDTH_WINDOW)
-		{
-			my_mlx_pixel_put(&data->img, x, y, color);
-			x++;
-		}
-		x = 0;
-		y++;
-	}
-	return (data->img);
-}
 
-t_image ft_put_sky(t_data *data, int color)
-{
-	int	x;
-	int	y;
-	
-	x = 0;
-	y = 0;
-	while (y < HEIGHT_WINDOW / 2)
-	{
-		while(x < WIDTH_WINDOW)
-		{
-			my_mlx_pixel_put(&data->img, x, y, color);
-			x++;
-		}
-		x = 0;
-		y++;
-	}
-	return (data->img);
-}
 
-t_image ft_put_ground(t_data *data, int color)
-{
-	int	x;
-	int	y;
-	
-	x = 0;
-	y = HEIGHT_WINDOW / 2;
-	while (y < HEIGHT_WINDOW)
-	{
-		while(x < WIDTH_WINDOW)
-		{
-			my_mlx_pixel_put(&data->img, x, y, color);
-			x++;
-		}
-		x = 0;
-		y++;
-	}
-	return (data->img);
-}
-
-t_image ft_draw_line(t_data *data, t_vector2f start, t_vector2f end, int color)
-{
-	t_vector2f	delta;
-	t_vector2f	pixel;
-	int			nb_pixel;
-	
-	delta.x = end.x - start.x;
-	delta.y = end.y - start.y;
-	nb_pixel = sqrt((delta.x * delta.x) + (delta.y * delta.y));
-	delta.x /= nb_pixel;
-	delta.y /= nb_pixel;
-	pixel.x = start.x;
-	pixel.y = start.y;
-	while (nb_pixel)
-	{
-		my_mlx_pixel_put(&data->img, pixel.x, pixel.y, color);
-		pixel.x += delta.x;
-		pixel.y += delta.y;
-		nb_pixel--;
-	}
-	return (data->img);
-}
-
-t_image	ft_draw_square(t_data *data, int color, int x, int y)
-{
-	int i;
-	int j;
-	
-	j = 0;
-	while (j < CUBE_SIZE)
-	{
-		i = 0;
-		while (i < CUBE_SIZE)
-		{	
-			if (i == 0 || j == 0 || i == CUBE_SIZE - 1 || j == CUBE_SIZE - 1)
-				my_mlx_pixel_put(&data->img, x * CUBE_SIZE + i, y * CUBE_SIZE + j, BLACK);
-			else
-				my_mlx_pixel_put(&data->img, x * CUBE_SIZE + i, y * CUBE_SIZE + j, color);
-			i++;
-		}
-		j++;
-	}
-	return(data->img);
-}
 
 void ft_2d_map(t_data *data)
 {
@@ -148,29 +45,40 @@ void ft_2d_map(t_data *data)
 	}
 }
 
-// t_map	*init_map(t_data *data)
-// {
-// 	t_map map;
-// 	char **map1;
-// 	(void)data;
-// 	int i;
-// 	int j;
-// 	j = 0;
-// 	map1 = malloc(sizeof(map1) * 8 + 1);
-// 	while (j < 8)
-// 	{
-// 		i = 0;
-// 		map1[j] = malloc(sizeof(char) * 16 + 1);
-// 		while (i < 16)
-// 		{
-// 			map1[j][i] = '0';
-// 			i++;
-// 		}
-// 		j++;
-// 	}
-// 	map1[5][7] = '1';
-// 	map.map = map1;
-// 	map.height = 8;
-// 	map.width = 16;
-// 	return (*map);
-// }
+unsigned int	my_mlx_pixel_get_color(t_image *data, int x, int y)
+{
+	char	*dst;
+
+	dst = data->pixels + (y * data->line_size + x * (data->bits_per_pixel / 8));
+	return (*(unsigned int *)dst);
+}
+
+
+int get_text_pixel(t_image *text, int x, int y)
+{
+	int color;
+
+	
+	if (x < 0 || x >= text->width)
+		return (0); 
+	if (y < 0 || y >= text->height)
+		return (0);
+	color = (*(int *)text->pixels + (y * text->line_size) + (x * text->bits_per_pixel / 8));
+	return (color);
+}
+
+int	ft_define_pxl_color(t_data *data)
+{
+	int color;
+	
+	if (data->ray.side == NORTH)
+		color = my_mlx_pixel_get_color(&data->texture[NORTH], data->ratio.x, data->ratio.y);
+	else if (data->ray.side == SOUTH)
+		color = my_mlx_pixel_get_color(&data->texture[SOUTH], data->ratio.x, data->ratio.y);
+	else if (data->ray.side == EAST)
+		color = my_mlx_pixel_get_color(&data->texture[EAST], data->ratio.x, data->ratio.y);
+	else
+		color = my_mlx_pixel_get_color(&data->texture[WEST], data->ratio.x, data->ratio.y);
+	return (color);
+}
+

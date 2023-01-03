@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 11:11:44 by lorampon          #+#    #+#             */
-/*   Updated: 2023/01/03 16:53:59 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/03 19:08:06 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ typedef struct s_data
 	t_texture 	*tex;
 	t_vector2f	dir;
 	t_vector2f	ratio;
+	double		lineH;
 } t_data;
 
 //############### parsing ###############
@@ -158,8 +159,6 @@ unsigned int	ft_rgb(int r, int g, int b);
 t_lst	*ft_new_node(char *str);
 void	ft_last_lst_elem(t_lst **ptr);
 
-
-//############### utils  ################
 char	**ft_split_charset(char *str, char *charset);
 void	ft_free_tab(char **tab);
 void	ft_error_exit(char *str);
@@ -167,11 +166,26 @@ int		ft_count_char(char *str, char c);
 char	**ft_list_to_tab(t_lst *lst, int width, int height);
 void	*ft_arena_alloc(t_arena *arena, size_t size);
 
-t_data	init_data(t_data *data);
-t_image	ft_put_line(t_data *data, t_vector2f end, int color);
-t_image ft_draw_line(t_data *data, t_vector2f start, t_vector2f end, int color);
-t_image ft_grey_backgroud(t_data *data, int color);
+int get_text_pixel(t_image *text, int x, int y);
+int	ft_define_pxl_color(t_data *data);
+unsigned int	my_mlx_pixel_get_color(t_image *data, int x, int y);
+void ft_2d_map(t_data *data);
 void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
+
+
+//############### raycasting  ################
+
+t_ray	ft_ray_horizontal(t_data *data, t_ray ray);
+t_ray	draw_ray_horizontal_help(t_data *data, t_ray ray, t_vector2f offset);
+t_ray	draw_ray_horizontal(t_data *data);
+
+t_ray	ft_ray_vertical(t_data *data, t_ray ray);
+t_ray	draw_ray_vertical_help(t_data *data, t_ray ray, t_vector2f offset);
+t_ray	draw_ray_vertical(t_data *data);
+
+t_ray	farthest_ray(t_data *data, t_ray ray_v, t_ray ray_h);
+
+//############### key_hook ################
 
 void	ft_move_forward(t_data *data);
 void	ft_move_backward(t_data *data);
@@ -179,15 +193,25 @@ void	ft_move_left(t_data *data);
 void	ft_move_right(t_data *data);
 void	ft_turn_left(t_data *data);
 void	ft_turn_right(t_data *data);
-int	ft_key_hook(int keycode, t_data *data);
-void	ft_display(t_data *data);
 
-t_map	init_map(t_data *data);
-void ft_2d_map(t_data *data);
-t_ray draw_ray_vertical(t_data *data);
-t_ray draw_ray_horizontal(t_data *data);
-t_ray	farthest_ray(t_data *data, t_ray ray_v, t_ray ray_h);
+int	ft_key_hook(int keycode, t_data *data);
+int	check_collision(t_data *data, t_vector2f pos);
+void	ft_exit(t_data *data);
+int load_texture(t_data *data, char *texture_path, int i);
+
+//############### display & draw ################
+
+void	ft_display(t_data *data);
+double	ft_display_help(t_data *data, double camera_angle);
+double	ft_texture_offset(t_data *data);
+void	ft_set_ratio_x(t_data *data);
+int		load_texture(t_data *data, char *texture_path, int i);
+
 t_image ft_put_sky(t_data *data, int color);
 t_image ft_put_ground(t_data *data, int color);
+t_image ft_draw_line(t_data *data, t_vector2f start, t_vector2f end, int color);
+t_image ft_draw_rect(t_data *data, double offsetx);
+t_image	ft_draw_square(t_data *data, int color, int x, int y);
+
 
 #endif

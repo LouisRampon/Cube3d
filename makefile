@@ -6,7 +6,7 @@
 #    By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/25 11:47:12 by lorampon          #+#    #+#              #
-#    Updated: 2023/01/03 14:03:01 by lorampon         ###   ########.fr        #
+#    Updated: 2023/01/03 19:06:39 by lorampon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,13 @@ SRCS_PARSING_WITHOUT_PATH = ft_parsing.c			\
 
 
 SRCS_EXEC_WITHOUT_PATH =	move.c \
-							raycasting.c
+							raycasting.c \
+							raycasting_h.c \
+							raycasting_v.c \
+							mlx_hook.c		\
+							display.c		\
+							draw.c 			\
+							
 							
 SRCS_UTILS_WITHOUT_PATH = 	map_utils.c\
 							ft_split_charset.c		\
