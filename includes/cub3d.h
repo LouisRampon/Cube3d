@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 11:11:44 by lorampon          #+#    #+#             */
-/*   Updated: 2022/12/21 16:32:46 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/03 16:53:59 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ enum args {space = ' ', wall = '1', floor1 = '0', p_north = 'N',\
 # define EAST 2
 # define WEST 3
 
-# define WIDTH_WINDOW 1024
-# define HEIGHT_WINDOW 256
+# define WIDTH_WINDOW 960
+# define HEIGHT_WINDOW 512
 # define CUBE_SIZE 32
-# define FOV 64
+# define FOV 480
 # define MS 5
 # define TS 0.11
 
@@ -53,7 +53,7 @@ enum args {space = ' ', wall = '1', floor1 = '0', p_north = 'N',\
 # define ORANGE2 0xFF4900
 # define ORANGE3 0xFF4700
 
-# define DR 0.0174533
+# define DR 0.0174533 / 8
 
 typedef struct s_arena
 {
@@ -125,6 +125,8 @@ typedef struct s_image
 	int			bits_per_pixel;
 	int			line_size;
 	int			endian;
+	int 		width;
+	int 		height;
 }	t_image;
 
 typedef struct s_data
@@ -135,9 +137,11 @@ typedef struct s_data
 	t_player	player;
 	t_ray		ray;
 	t_image 	img;
+	t_image		texture[4];
 	t_arena		*arena;
 	t_texture 	*tex;
 	t_vector2f	dir;
+	t_vector2f	ratio;
 } t_data;
 
 //############### parsing ###############
@@ -183,5 +187,7 @@ void ft_2d_map(t_data *data);
 t_ray draw_ray_vertical(t_data *data);
 t_ray draw_ray_horizontal(t_data *data);
 t_ray	farthest_ray(t_data *data, t_ray ray_v, t_ray ray_h);
+t_image ft_put_sky(t_data *data, int color);
+t_image ft_put_ground(t_data *data, int color);
 
 #endif

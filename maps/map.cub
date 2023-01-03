@@ -1,17 +1,17 @@
-SO ./texture/tex3
-WE  ./texture/tex1
-EA  ./texture/tex2
-NO ./texture/tex4
-F 56,79,88
-C 153,76,0
+SO ./texture/redbrick.xpm
+WE  ./texture/mossy.xpm
+EA  ./texture/greystone.xpm
+NO ./texture/wood.xpm
+F 200,200,200
+C 255,100,100
 
 
 
 11111111
 10100001
 10101001
-10100001
-1000E001
+10100101
+1000W001
 10000001
 10000101
 10000001

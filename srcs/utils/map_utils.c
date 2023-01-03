@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 13:46:29 by lorampon          #+#    #+#             */
-/*   Updated: 2022/12/21 11:52:34 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/03 16:53:39 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,46 @@ t_image ft_grey_backgroud(t_data *data, int color)
 	
 	x = 0;
 	y = 0;
+	while (y < HEIGHT_WINDOW)
+	{
+		while(x < WIDTH_WINDOW)
+		{
+			my_mlx_pixel_put(&data->img, x, y, color);
+			x++;
+		}
+		x = 0;
+		y++;
+	}
+	return (data->img);
+}
+
+t_image ft_put_sky(t_data *data, int color)
+{
+	int	x;
+	int	y;
+	
+	x = 0;
+	y = 0;
+	while (y < HEIGHT_WINDOW / 2)
+	{
+		while(x < WIDTH_WINDOW)
+		{
+			my_mlx_pixel_put(&data->img, x, y, color);
+			x++;
+		}
+		x = 0;
+		y++;
+	}
+	return (data->img);
+}
+
+t_image ft_put_ground(t_data *data, int color)
+{
+	int	x;
+	int	y;
+	
+	x = 0;
+	y = HEIGHT_WINDOW / 2;
 	while (y < HEIGHT_WINDOW)
 	{
 		while(x < WIDTH_WINDOW)

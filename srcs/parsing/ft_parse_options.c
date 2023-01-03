@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_options.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jereverd <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 19:16:49 by jereverd          #+#    #+#             */
-/*   Updated: 2022/12/19 19:16:50 by jereverd         ###   ########lyon.fr   */
+/*   Updated: 2023/01/03 13:33:50 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ int	ft_parse_line(t_texture *tx, char *str)
 	if (!param)
 		ft_error_exit("Error\n");
 	ft_if_else_if(tx, identifier, param);
-	free(param);
 	ft_free_tab(tab);
 	return (1);
 }
