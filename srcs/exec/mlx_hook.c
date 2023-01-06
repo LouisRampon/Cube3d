@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 18:54:38 by lorampon          #+#    #+#             */
-/*   Updated: 2023/01/06 12:51:06 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/06 13:19:09 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_key_hook(int keycode, t_data *data)
 		ft_turn_left(data);
 	else if (keycode == E)
 		ft_turn_right(data);
-	else if (keycode == ESC)
+	else if (keycode == ESC || keycode == 17)
 		ft_exit(data);
 	return (0);
 }
