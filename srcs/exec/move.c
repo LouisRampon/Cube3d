@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 16:40:16 by lorampon          #+#    #+#             */
-/*   Updated: 2023/01/06 12:50:40 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/06 13:33:57 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_move_backward(t_data *data)
 
 	temp.x = data->player.coord.x - MS * cos(data->player.angle);
 	temp.y = data->player.coord.y - MS * sin(data->player.angle);
-	if (check_collision(data, temp))
+	if (check_collision(data, data->player.angle - M_PI))
 		return ;
 	mlx_clear_window(data->mlx_ptr, data->mlx_win_ptr);
 	data->player.coord = temp;
@@ -31,7 +31,7 @@ void	ft_move_left(t_data *data)
 
 	temp.x = data->player.coord.x + MS * cos(data->player.angle - M_PI_2);
 	temp.y = data->player.coord.y - MS * sin(data->player.angle + M_PI_2);
-	if (check_collision(data, temp))
+	if (check_collision(data, data->player.angle - M_PI_2))
 		return ;
 	mlx_clear_window(data->mlx_ptr, data->mlx_win_ptr);
 	data->player.coord = temp;
@@ -44,7 +44,7 @@ void	ft_move_right(t_data *data)
 
 	temp.x = data->player.coord.x - MS * cos(data->player.angle - M_PI_2);
 	temp.y = data->player.coord.y + MS * sin(data->player.angle + M_PI_2);
-	if (check_collision(data, temp))
+	if (check_collision(data, data->player.angle + M_PI_2))
 		return ;
 	mlx_clear_window(data->mlx_ptr, data->mlx_win_ptr);
 	data->player.coord = temp;
