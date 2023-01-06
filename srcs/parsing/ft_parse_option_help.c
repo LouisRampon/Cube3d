@@ -1,27 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_parse_option_help.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/13 12:29:39 by jereverd          #+#    #+#             */
-/*   Updated: 2023/01/06 13:01:10 by lorampon         ###   ########.fr       */
+/*   Created: 2023/01/06 13:00:02 by lorampon          #+#    #+#             */
+/*   Updated: 2023/01/06 13:00:19 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "../../includes/cub3d.h"
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <limits.h>
-# include "../libft/includes/libft.h"
+int	ft_only_valid_digits(char *str)
+{
+	int	i;
+	int	count;
 
-# define BUFFER_SIZE 1
+	count = 0;
+	i = 0;
+	if (ft_atoi(str) > 255)
+		return (0);
+	while (str[i])
+	{
+		if (ft_isdigit(str[i]) == 1)
+			count++;
+		i++;
+	}
+	if (i == count)
+		return (1);
+	return (0);
+}
 
-char	*get_next_line(int fd);
-char	*ft_strjoinl_gnl(char *s1, char *s2, size_t i, size_t j);
-int		check_buffer(char *line);
-
-#endif
+unsigned int	ft_rgb(int r, int g, int b)
+{
+	return ((r * 256 * 256) + (g * 256) + b);
+}

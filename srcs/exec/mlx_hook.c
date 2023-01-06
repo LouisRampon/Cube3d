@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 18:54:38 by lorampon          #+#    #+#             */
-/*   Updated: 2023/01/03 18:55:26 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/06 12:51:06 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_exit(t_data *data)
 
 int	check_collision(t_data *data, t_vector2f pos)
 {
-	t_vector2d temp;
+	t_vector2d	temp;
 
 	temp.x = (int)pos.x / CUBE_SIZE;
 	temp.y = (int)pos.y / CUBE_SIZE;
@@ -28,7 +28,6 @@ int	check_collision(t_data *data, t_vector2f pos)
 		return (1);
 	else
 		return (0);
-
 }
 
 int	ft_key_hook(int keycode, t_data *data)

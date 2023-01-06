@@ -6,10 +6,9 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 16:40:16 by lorampon          #+#    #+#             */
-/*   Updated: 2023/01/03 18:55:18 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/06 12:50:40 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../includes/cub3d.h"
 
@@ -73,4 +72,3 @@ void	ft_turn_right(t_data *data)
 	data->dir.y = sin(data->player.angle);
 	ft_display(data);
 }
-

@@ -6,36 +6,11 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 19:16:49 by jereverd          #+#    #+#             */
-/*   Updated: 2023/01/03 13:33:50 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/06 13:00:22 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-int	ft_only_valid_digits(char *str)
-{
-	int	i;
-	int	count;
-
-	count = 0;
-	i = 0;
-	if (ft_atoi(str) > 255)
-		return (0);
-	while (str[i])
-	{
-		if (ft_isdigit(str[i]) == 1)
-			count++;
-		i++;
-	}
-	if (i == count)
-		return (1);
-	return (0);
-}
-
-unsigned int	ft_rgb(int r, int g, int b)
-{
-	return ((r * 256 * 256) + (g * 256) + b);
-}
 
 void	ft_parse_rgb(t_texture *tx, char *param, int flag)
 {

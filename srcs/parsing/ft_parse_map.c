@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 19:16:43 by jereverd          #+#    #+#             */
-/*   Updated: 2022/12/21 11:49:26 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/06 12:59:24 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ void	ft_check_if_map_closed(char **map, int i, int j)
 
 void	ft_get_player_pos(t_map *m, char **map, int i, int j)
 {
-	char dir;
+	char	dir;
 
 	dir = map[i][j];
-	if (dir == 'N' || dir == 'S' ||dir == 'E' ||dir == 'W')
+	if (dir == 'N' || dir == 'S' || dir == 'E' || dir == 'W')
 	{
 		m->player.coord.y = i;
 		m->player.coord.x = j;
@@ -109,5 +109,4 @@ void	ft_parse_map(t_map *map)
 	if (!has_player)
 		ft_error_exit("Error: need one player in map\n");
 	map->map[(int)map->player.coord.y][(int)map->player.coord.x] = floor1;
-	printf("coord x = %d\n coord y = %d", (int)map->player.coord.x, (int)map->player.coord.y);
 }

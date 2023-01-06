@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jereverd <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/19 19:16:34 by jereverd          #+#    #+#             */
-/*   Updated: 2022/12/19 19:16:35 by jereverd         ###   ########lyon.fr   */
+/*   Updated: 2023/01/06 12:58:45 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,4 @@ void	ft_init_map(t_map *map, int fd)
 	ft_init_parse_map_struct(map);
 	ft_get_map_values(map, fd);
 	ft_parse_map(map);
-	for (int i = 0; i < map->height; i++)
-		printf("%s\n", map->map[i]);
 }

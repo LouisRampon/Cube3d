@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 10:56:31 by lorampon          #+#    #+#             */
-/*   Updated: 2023/01/03 19:04:43 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/06 12:57:50 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,17 @@
 
 t_data	init_data(t_data *data)
 {
-	t_image img;
+	t_image	img;
 
 	data->mlx_ptr = mlx_init();
 	img.ptr = mlx_new_image(data->mlx_ptr, WIDTH_WINDOW, HEIGHT_WINDOW);
-	img.pixels = mlx_get_data_addr(img.ptr, &img.bits_per_pixel, &img.line_size, &img.endian);
+	img.pixels = mlx_get_data_addr(img.ptr, &img.bits_per_pixel,
+			&img.line_size, &img.endian);
 	data->img = img;
-	data->player.coord.x = data->map->player.coord.x * CUBE_SIZE + CUBE_SIZE / 2;
-	data->player.coord.y = data->map->player.coord.y * CUBE_SIZE + CUBE_SIZE / 2;
+	data->player.coord.x = data->map->player.coord.x
+		* CUBE_SIZE + CUBE_SIZE / 2;
+	data->player.coord.y = data->map->player.coord.y
+		* CUBE_SIZE + CUBE_SIZE / 2;
 	data->player.angle = data->map->player.angle;
 	data->dir.x = cos(data->player.angle);
 	data->dir.y = sin(data->player.angle);
@@ -29,17 +32,18 @@ t_data	init_data(t_data *data)
 	load_texture(data, data->tex->south, SOUTH);
 	load_texture(data, data->tex->east, EAST);
 	load_texture(data, data->tex->west, WEST);
-	data->mlx_win_ptr = mlx_new_window(data->mlx_ptr, WIDTH_WINDOW, HEIGHT_WINDOW, "cub3d");
+	data->mlx_win_ptr = mlx_new_window(data->mlx_ptr,
+			WIDTH_WINDOW, HEIGHT_WINDOW, "cub3d");
 	ft_display(data);
 	return (*data);
 }
 
-int main (int ac, char **av)
+int	main(int ac, char **av)
 {
-	t_texture t;
-	t_map map;
-	t_arena a;
-	t_data data;
+	t_texture	t;
+	t_map		map;
+	t_arena		a;
+	t_data		data;
 
 	if (ac != 2)
 		return (0);

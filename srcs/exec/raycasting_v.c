@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 18:51:55 by lorampon          #+#    #+#             */
-/*   Updated: 2023/01/03 18:52:17 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/06 12:46:38 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,19 @@ t_ray	ft_ray_vertical(t_data *data, t_ray ray)
 	{
 		ray.coord.y = 0;
 		ray.coord.x = data->player.coord.x;
-		ray.side = SOUTH;	
-		return (ray);	
+		ray.side = SOUTH;
+		return (ray);
 	}
 }
 
-t_ray draw_ray_vertical_help(t_data *data, t_ray ray, t_vector2f offset)
+t_ray	draw_ray_vertical_help(t_data *data, t_ray ray, t_vector2f offset)
 {
-	t_vector2d map_pos;
-	
+	t_vector2d	map_pos;
+
 	map_pos.x = (int)ray.coord.x / CUBE_SIZE;
 	map_pos.y = (int)ray.coord.y / CUBE_SIZE;
 	while (map_pos.x < data->map->width && map_pos.y < data->map->height
-			&& map_pos.x > 0 && map_pos.y > 0)
+		&& map_pos.x > 0 && map_pos.y > 0)
 	{
 		if (data->map->map[map_pos.y][map_pos.x] == '1')
 			break ;
@@ -53,11 +53,11 @@ t_ray draw_ray_vertical_help(t_data *data, t_ray ray, t_vector2f offset)
 	return (ray);
 }
 
-t_ray draw_ray_vertical(t_data *data)
+t_ray	draw_ray_vertical(t_data *data)
 {
-	t_ray ray;
-	t_vector2f offset;
-	float ntan;
+	t_ray		ray;
+	t_vector2f	offset;
+	float		ntan;
 
 	ntan = -tan(data->ray.angle);
 	ray.angle = data->ray.angle;
@@ -65,18 +65,19 @@ t_ray draw_ray_vertical(t_data *data)
 		return (ft_ray_vertical(data, ray));
 	else if (data->ray.angle > M_PI_2 && data->ray.angle < M_PI_2 * 3)
 	{
-		ray.coord.x = (((int)data->player.coord.x>>5)<<5)-0.0001;
-		ray.coord.y = (data->player.coord.x - ray.coord.x) * ntan + data->player.coord.y;
+		ray.coord.x = (((int)data->player.coord.x >> 5) << 5) - 0.0001;
+		ray.coord.y = (data->player.coord.x - ray.coord.x)
+			* ntan + data->player.coord.y;
 		offset.x = -CUBE_SIZE;
 		offset.y = -offset.x * ntan;
 	}
 	else
 	{
-		ray.coord.x = (((int)data->player.coord.x>>5)<<5)+ CUBE_SIZE;
-		ray.coord.y = (data->player.coord.x - ray.coord.x) * ntan + data->player.coord.y;
+		ray.coord.x = (((int)data->player.coord.x >> 5) << 5) + CUBE_SIZE;
+		ray.coord.y = (data->player.coord.x - ray.coord.x)
+			* ntan + data->player.coord.y;
 		offset.x = CUBE_SIZE;
-		offset.y = -offset.x * ntan;	
+		offset.y = -offset.x * ntan;
 	}
-	ray = draw_ray_vertical_help(data, ray, offset);
-	return (ray);
+	return (draw_ray_vertical_help(data, ray, offset));
 }

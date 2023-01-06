@@ -6,7 +6,7 @@
 #    By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/25 11:47:12 by lorampon          #+#    #+#              #
-#    Updated: 2023/01/03 19:06:39 by lorampon         ###   ########.fr        #
+#    Updated: 2023/01/06 13:00:51 by lorampon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS_MAIN_WITHOUT_PATH = main.c	\
 
 SRCS_PARSING_WITHOUT_PATH = ft_parsing.c			\
 							ft_parse_options.c		\
+							ft_parse_poption.C		\
 							ft_parse_map.c			\
 							ft_init_map.c			\
 							ft_init_list.c			\
