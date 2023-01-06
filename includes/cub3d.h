@@ -22,7 +22,7 @@
 # include <unistd.h>
 # include <math.h>
 
-enum args {space = ' ', wall = '1', floor1 = '0', p_north = 'N',\
+enum e_args {space = ' ', wall = '1', floor1 = '0', p_north = 'N',\
 			p_south = 'S', p_east = 'E', p_west = 'W'};
 
 # define W 13
@@ -77,8 +77,8 @@ typedef struct s_vector2d
 
 typedef struct s_vector2f
 {
-	double x;
-	double y;
+	double	x;
+	double	y;
 }	t_vector2f;
 
 typedef struct	s_texture
@@ -89,16 +89,16 @@ typedef struct	s_texture
 	char	*south;
 	int		floor[3];
 	int		ceiling[3];
-	int 	gnl_index;
-	int 	o_index;
-	int 	c_index;
-	int 	f_index;
+	int		gnl_index;
+	int		o_index;
+	int		c_index;
+	int		f_index;
 }t_texture;
 
 typedef struct	s_ray
 {
 	t_vector2f	coord;
-	double 		angle;
+	double		angle;
 	double		dist;
 	int			side;
 }t_ray;
@@ -106,13 +106,13 @@ typedef struct	s_ray
 typedef struct	s_player
 {
 	t_vector2f	coord;
-	double 		angle;
+	double		angle;
 }t_player;
 
 typedef struct	s_map
 {
 	char 		**map;
-	int			width; //changer pour size_t
+	int			width;
 	int			height;
 	t_lst 		*lst;
 	t_player	player;
@@ -197,7 +197,7 @@ void	ft_turn_right(t_data *data);
 
 int		ft_key_hook(int keycode, t_data *data);
 int		check_collision(t_data *data, t_vector2f pos);
-void	ft_exit(t_data *data);
+int 	ft_exit(t_data *data);
 int		load_texture(t_data *data, char *texture_path, int i);
 
 //############### display & draw ################

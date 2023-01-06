@@ -12,6 +12,24 @@
 
 #include "../../includes/cub3d.h"
 
+void	ft_parse_rgb_help(t_texture *tx, char **tab, int flag)
+{
+	if (flag == 1)
+	{
+		tx->ceiling[0] = (int)ft_atoi(tab[0]);
+		tx->ceiling[1] = (int)ft_atoi(tab[1]);
+		tx->ceiling[2] = (int)ft_atoi(tab[2]);
+		tx->c_index = 1;
+	}
+	else
+	{
+		tx->floor[0] = (int)ft_atoi(tab[0]);
+		tx->floor[1] = (int)ft_atoi(tab[1]);
+		tx->floor[2] = (int)ft_atoi(tab[2]);
+		tx->f_index = 1;
+	}
+}
+
 void	ft_parse_rgb(t_texture *tx, char *param, int flag)
 {
 	char	**tab;
@@ -27,20 +45,7 @@ void	ft_parse_rgb(t_texture *tx, char *param, int flag)
 		!ft_only_valid_digits(tab[1]) || \
 		!ft_only_valid_digits(tab[2]))
 		ft_error_exit("Format error: expected valid digits in RGB\n");
-	if (flag == 1)
-	{
-		tx->ceiling[0] = (int)ft_atoi(tab[0]);
-		tx->ceiling[1] = (int)ft_atoi(tab[1]);
-		tx->ceiling[2] = (int)ft_atoi(tab[2]);
-		tx->c_index = 1;
-	}
-	else
-	{
-		tx->floor[0] = (int)ft_atoi(tab[0]);
-		tx->floor[1] = (int)ft_atoi(tab[1]);
-		tx->floor[2] = (int)ft_atoi(tab[2]);
-		tx->f_index = 1;
-	}
+	ft_parse_rgb_help(tx, tab, flag);
 	free(param);
 	ft_free_tab(tab);
 }

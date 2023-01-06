@@ -12,7 +12,7 @@
 
 #include "../../includes/cub3d.h"
 
-void	ft_exit(t_data *data)
+int	ft_exit(t_data *data)
 {
 	(void)data;
 	exit(0);
