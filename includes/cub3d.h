@@ -149,6 +149,7 @@ typedef struct s_data
 int		ft_parsing(t_data *data, char *file_name);
 int		ft_parse_line(t_texture *tx, char *str);
 void	ft_init_parse_map_struct(t_map *m);
+
 void	ft_init_map(t_map *map, int fd);
 void	ft_parse_map(t_map *map);
 
@@ -162,8 +163,8 @@ char	**ft_split_charset(char *str, char *charset);
 void	ft_free_tab(char **tab);
 void	ft_error_exit(char *str);
 int		ft_count_char(char *str, char c);
+int		ft_only_valid_digits(char *str);
 char	**ft_list_to_tab(t_lst *lst, int width, int height);
-void	*ft_arena_alloc(t_arena *arena, size_t size);
 
 int		get_text_pixel(t_image *text, int x, int y);
 int		ft_define_pxl_color(t_data *data);
