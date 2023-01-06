@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 18:54:38 by lorampon          #+#    #+#             */
-/*   Updated: 2023/01/06 13:34:17 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/06 14:46:10 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ int	check_collision(t_data *data, double angle)
 
 int	ft_key_hook(int keycode, t_data *data)
 {
-	if (keycode == W)
+	if (keycode == W || keycode == KEY_UP)
 		ft_move_forward(data);
-	else if (keycode == A)
+	else if (keycode == A || keycode == KEY_DOWN)
 		ft_move_left(data);
-	else if (keycode == D)
+	else if (keycode == D || keycode == KEY_RIGHT)
 		ft_move_right(data);
-	else if (keycode == S)
+	else if (keycode == S || keycode == KEY_LEFT)
 		ft_move_backward(data);
 	else if (keycode == Q)
 		ft_turn_left(data);

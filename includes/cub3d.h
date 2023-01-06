@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 11:11:44 by lorampon          #+#    #+#             */
-/*   Updated: 2023/01/06 14:39:40 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/06 14:45:17 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ enum e_args {space = ' ', wall = '1', floor1 = '0', p_north = 'N',\
 # define D 2
 # define Q 12
 # define E 14
+# define KEY_UP		126
+# define KEY_DOWN	125
+# define KEY_RIGHT	124
+# define KEY_LEFT	123
 # define ESC 53
 
 # define NORTH 0
