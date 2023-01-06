@@ -35,7 +35,7 @@ SRCS_EXEC_WITHOUT_PATH =	move.c 			\
 							draw.c 			\
 							
 							
-SRCS_UTILS_WITHOUT_PATH = 	map_utils.c\
+SRCS_UTILS_WITHOUT_PATH = 	map_utils.c				\
 							ft_split_charset.c		\
 							ft_free_tab.c			\
 							ft_error_exit.c			\
@@ -49,7 +49,8 @@ OBJS_SRCS_EXEC_WITHOUT_PATH = $(SRCS_EXEC_WITHOUT_PATH:.c=.o)
 OBJS_SRCS_UTILS_WITHOUT_PATH = $(SRCS_UTILS_WITHOUT_PATH:.c=.o)
 OBJS_SRCS_BUILT_IN_WITHOUT_PATH = $(SRCS_BUILT_IN_WITHOUT_PATH:.c=.o)
 
-HEADER_WITHOUT_PATH = cub3d.h
+HEADER_WITHOUT_PATH = 	cub3d.h			\
+						get_next_line.h	\
 
 PATH_TO_SRCS_MAIN = ./srcs/
 PATH_TO_LIB_DIR = ./libft/
@@ -82,7 +83,7 @@ HEADER =	$(addprefix $(PATH_TO_HEADER), $(HEADER_WITHOUT_PATH))
 
 	######### COMMANDS ###########
 CC = gcc
-CFLAGS	= -Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS	= -Wall -Wextra -Werror #-fsanitize=address -g3
 CFLAGS_MLX = -framework OpenGL -framework AppKit
 RM = rm -rf
 PATH_TO_LIBFT = ./libft/
@@ -104,27 +105,27 @@ all: rcs $(PATH_TO_OBJS) $(NAME)
 $(PATH_TO_OBJS):
 	mkdir -p ./.objs/
 
-$(OBJS_SRCS_MAIN):$(PATH_TO_OBJS)%.o	: $(PATH_TO_SRCS_MAIN)%.c Makefile $(HEADER)
+$(OBJS_SRCS_MAIN):$(PATH_TO_OBJS)%.o	: $(PATH_TO_SRCS_MAIN)%.c Makefile $(HEADER) $(LIBFT_A)
 	printf "\033[2K\r$(YELLOW) Compiling:$(WHITE) $<"
 	$(CC) $(CFLAGS) $(READLINE_HOMEBREW_INCLUDE) -c $< -o $@
 
-$(OBJS_SRCS_PARSING):$(PATH_TO_OBJS)%.o	: $(PATH_TO_SRCS_PARSING)%.c Makefile $(HEADER) 
+$(OBJS_SRCS_PARSING):$(PATH_TO_OBJS)%.o	: $(PATH_TO_SRCS_PARSING)%.c Makefile $(HEADER) $(LIBFT_A)
 	printf "\033[2K\r$(YELLOW)Compiling:$(WHITE) $< "
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJS_SRCS_ENV):$(PATH_TO_OBJS)%.o	: $(PATH_TO_SRCS_ENV)%.c Makefile $(HEADER) 
+$(OBJS_SRCS_ENV):$(PATH_TO_OBJS)%.o	: $(PATH_TO_SRCS_ENV)%.c Makefile $(HEADER) $(LIBFT_A)
 	printf "\033[2K\r$(YELLOW)Compiling:$(WHITE) $< "
 	$(CC) $(CFLAGS) -c $< -o $@
 	
 
-$(OBJS_SRCS_EXEC):$(PATH_TO_OBJS)%.o : $(PATH_TO_SRCS_EXEC)%.c Makefile $(HEADER) 
+$(OBJS_SRCS_EXEC):$(PATH_TO_OBJS)%.o : $(PATH_TO_SRCS_EXEC)%.c Makefile $(HEADER) $(LIBFT_A)
 	$(CC) $(CFLAGS) -c $< -o $@
 	
-$(OBJS_SRCS_UTILS):$(PATH_TO_OBJS)%.o	: $(PATH_TO_SRCS_UTILS)%.c Makefile $(HEADER)
+$(OBJS_SRCS_UTILS):$(PATH_TO_OBJS)%.o	: $(PATH_TO_SRCS_UTILS)%.c Makefile $(HEADER) $(LIBFT_A)
 	printf "\033[2K\r$(YELLOW)Compiling:$(WHITE) $< "
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJS_SRCS_BUILT_IN):$(PATH_TO_OBJS)%.o	: $(PATH_TO_SRCS_BUILT_IN)%.c Makefile $(HEADER)
+$(OBJS_SRCS_BUILT_IN):$(PATH_TO_OBJS)%.o	: $(PATH_TO_SRCS_BUILT_IN)%.c Makefile $(HEADER) $(LIBFT_A)
 	printf "\033[2K\r$(YELLOW)Compiling:$(WHITE) $< "
 	$(CC) $(CFLAGS) -c $< -o $@
 	
