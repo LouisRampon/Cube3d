@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 10:56:31 by lorampon          #+#    #+#             */
-/*   Updated: 2023/01/06 12:57:50 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/06 13:25:20 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	main(int ac, char **av)
 	ft_parsing(&data, av[1]);
 	data = init_data(&data);
 	mlx_hook(data.mlx_win_ptr, 2, 0, &ft_key_hook, &data);
+	mlx_hook(data.mlx_win_ptr, 17, 0, *ft_exit, &data);
 	mlx_loop(data.mlx_ptr);
 	ft_free_tab(data.map->map);
 	ft_free_lst(data.map->lst);

@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 11:11:44 by lorampon          #+#    #+#             */
-/*   Updated: 2023/01/06 13:06:32 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/06 13:33:26 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,8 +196,8 @@ void	ft_turn_left(t_data *data);
 void	ft_turn_right(t_data *data);
 
 int		ft_key_hook(int keycode, t_data *data);
-int		check_collision(t_data *data, t_vector2f pos);
 int 	ft_exit(t_data *data);
+int		check_collision(t_data *data, double angle);
 int		load_texture(t_data *data, char *texture_path, int i);
 
 //############### display & draw ################
