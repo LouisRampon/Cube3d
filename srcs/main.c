@@ -46,7 +46,10 @@ int	main(int ac, char **av)
 	t_data		data;
 
 	if (ac != 2)
+	{
+		printf("Invalid arguments\n");
 		return (0);
+	}
 	data.tex = &t;
 	data.map = &map;
 	data.arena = &a;

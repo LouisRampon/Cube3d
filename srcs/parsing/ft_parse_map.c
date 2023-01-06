@@ -12,16 +12,16 @@
 
 #include "../../includes/cub3d.h"
 
-int	ft_check_border(char **map)
+int	ft_check_border(t_map *map)
 {
 	int	i;
 	int	count;
 
 	i = 0;
 	count = 0;
-	while (map[i])
+	while (map->map[i])
 	{
-		if (map[i][0] == space || map[i][0] == wall)
+		if (map->map[i][0] == space || map->map[i][0] == wall)
 			count++;
 		i++;
 	}
@@ -63,23 +63,29 @@ void	ft_check_if_map_closed(char **map, int i, int j)
 	}
 }
 
-void	ft_get_player_pos(t_map *m, char **map, int i, int j)
+void	ft_check_player(t_map *map)
 {
-	char	dir;
+	int	i;
+	int	j;
 
-	dir = map[i][j];
-	if (dir == 'N' || dir == 'S' || dir == 'E' || dir == 'W')
+	i = 0;
+	j = 0;
+	while (map->map[i][j])
 	{
-		m->player.coord.y = i;
-		m->player.coord.x = j;
-		if (dir == 'N')
-			m->player.angle = M_PI_2 * 3;
-		else if (dir == 'S')
-			m->player.angle = M_PI_2;
-		else if (dir == 'E')
-			m->player.angle = 0;
-		else if (dir == 'W')
-			m->player.angle = M_PI;
+		if (map->map[i][j] == 'N' || map->map[i][j] == 'E' || \
+		map->map[i][j] == 'W' || map->map[i][j] == 'S')
+			ft_error_exit("Map is not closed\n");
+		j++;
+	}
+	j = 0;
+	while (map->map[map->height - 1][j])
+	{
+		if (map->map[map->height - 1][j] == 'N' || \
+			map->map[map->height - 1][j] == 'E' || \
+			map->map[map->height - 1][j] == 'W' || \
+			map->map[map->height - 1][j] == 'S')
+			ft_error_exit("Map is not closed\n");
+		j++;
 	}
 }
 
@@ -89,11 +95,12 @@ void	ft_parse_map(t_map *map)
 	int		i;
 	int		j;
 
-	i = 0;
+	i = -1;
 	has_player = 0;
-	if (ft_check_border(map->map) == 0)
+	ft_check_player(map);
+	if (ft_check_border(map) == 0)
 		ft_error_exit("Map is not closed\n");
-	while (map->map[i])
+	while (map->map[++i])
 	{
 		j = 1;
 		while (map->map[i][j])
@@ -104,7 +111,6 @@ void	ft_parse_map(t_map *map)
 				has_player = 1;
 			j++;
 		}
-		i++;
 	}
 	if (!has_player)
 		ft_error_exit("Error: need one player in map\n");

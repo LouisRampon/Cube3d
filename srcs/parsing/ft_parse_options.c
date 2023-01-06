@@ -35,7 +35,7 @@ void	ft_parse_rgb(t_texture *tx, char *param, int flag)
 	char	**tab;
 
 	if (ft_count_char(param, ',') > 2)
-		ft_error_exit("error\n");
+		ft_error_exit("Invalid RGB options\n");
 	tab = ft_split(param, ',');
 	if (!tab)
 		ft_error_exit("Split failed\n");
@@ -98,7 +98,7 @@ int	ft_parse_line(t_texture *tx, char *str)
 	if (tab[1])
 		param = ft_substr(tab[1], 0, ft_strlen(tab[1]));
 	if (!param)
-		ft_error_exit("Error\n");
+		ft_error_exit("Invalid options\n");
 	ft_if_else_if(tx, identifier, param);
 	ft_free_tab(tab);
 	return (1);

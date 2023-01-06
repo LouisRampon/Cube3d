@@ -36,3 +36,23 @@ unsigned int	ft_rgb(int r, int g, int b)
 {
 	return ((r * 256 * 256) + (g * 256) + b);
 }
+
+void	ft_get_player_pos(t_map *m, char **map, int i, int j)
+{
+	char	dir;
+
+	dir = map[i][j];
+	if (dir == 'N' || dir == 'S' || dir == 'E' || dir == 'W')
+	{
+		m->player.coord.y = i;
+		m->player.coord.x = j;
+		if (dir == 'N')
+			m->player.angle = M_PI_2 * 3;
+		else if (dir == 'S')
+			m->player.angle = M_PI_2;
+		else if (dir == 'E')
+			m->player.angle = 0;
+		else if (dir == 'W')
+			m->player.angle = M_PI;
+	}
+}

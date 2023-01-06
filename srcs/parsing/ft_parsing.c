@@ -57,7 +57,7 @@ void	ft_init_txt_and_colors(t_texture *tx, int fd)
 	}
 	if (!tx->north || !tx->south || !tx->east || !tx->west || \
 		!tx->c_index || !tx->f_index)
-		ft_error_exit("Missing options\n");
+		ft_error_exit("Invalid options\n");
 }
 
 void	ft_init_parse_options_struct(t_texture *tx)

@@ -163,6 +163,7 @@ void			ft_free_lst(t_lst *lst);
 t_lst			*ft_new_node(char *str);
 void			ft_last_lst_elem(t_lst **ptr);
 
+void			ft_get_player_pos(t_map *m, char **map, int i, int j);
 char			**ft_split_charset(char *str, char *charset);
 void			ft_free_tab(char **tab);
 void			ft_error_exit(char *str);

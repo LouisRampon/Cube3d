@@ -1,7 +1,7 @@
-SO ./texture/tex3
 WE  ./texture/tex1
 EA  ./texture/tex2
 NO ./texture/tex4
+SO  ./texture/tex3
 C 255,255,0
 F  100,20,42
 
