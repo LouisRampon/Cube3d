@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 18:50:10 by lorampon          #+#    #+#             */
-/*   Updated: 2023/01/06 14:38:55 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/06 15:23:09 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 
 t_ray	ft_ray_horizontal(t_data *data, t_ray ray)
 {
+	t_vector2d	map_pos;
+
+	map_pos.x = (int)data->player.coord.x / CUBE_SIZE;
+	map_pos.y = (int)data->player.coord.y / CUBE_SIZE;
 	if (data->ray.angle == 0)
 	{
-		ray.coord.x = 0;
+		ray.coord.x = ft_strlen(data->map->map[map_pos.y]) * CUBE_SIZE;
 		ray.coord.y = data->player.coord.y;
 		ray.side = WEST;
 		return (ray);
