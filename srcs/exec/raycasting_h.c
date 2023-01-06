@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 18:50:10 by lorampon          #+#    #+#             */
-/*   Updated: 2023/01/06 14:10:44 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/06 14:38:55 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_ray	ft_ray_horizontal(t_data *data, t_ray ray)
 {
 	if (data->ray.angle == 0)
 	{
-		ray.coord.x = WIDTH_WINDOW - 1;
+		ray.coord.x = 0;
 		ray.coord.y = data->player.coord.y;
 		ray.side = WEST;
 		return (ray);

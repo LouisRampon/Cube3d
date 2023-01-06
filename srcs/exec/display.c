@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 18:59:42 by lorampon          #+#    #+#             */
-/*   Updated: 2023/01/06 14:15:30 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/06 14:39:00 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void	ft_display(t_data *data)
 				data->tex->floor[1], data->tex->floor[2]));
 	data->ray.angle = data->player.angle;
 	data->ray.angle = data->ray.angle - ((FOV / 2) * DR);
-	if (data->ray.angle >= 2 * M_PI)
+	if (data->ray.angle > 2 * M_PI)
 		data->ray.angle -= 2 * M_PI;
-	if (data->ray.angle <= 0)
+	if (data->ray.angle < 0)
 		data->ray.angle += 2 * M_PI;
 	while (fov < FOV)
 	{	
@@ -74,6 +74,7 @@ double	ft_texture_offset(t_data *data)
 {
 	double	offset;
 
+	offset = 0.0;
 	if (data->lineh > WIDTH_WINDOW)
 	{
 		if (data->ray.side == NORTH)
@@ -85,7 +86,7 @@ double	ft_texture_offset(t_data *data)
 		else if (data->ray.side == EAST)
 			offset = (data->lineh - WIDTH_WINDOW)
 				/ (data->texture[EAST].width / 32);
-		else
+		else if (data->ray.side == WEST)
 			offset = (data->lineh - WIDTH_WINDOW)
 				/ (data->texture[WEST].width / 32);
 		data->lineh = WIDTH_WINDOW;
