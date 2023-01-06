@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 18:51:55 by lorampon          #+#    #+#             */
-/*   Updated: 2023/01/06 12:46:38 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/06 14:10:57 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_ray	draw_ray_vertical(t_data *data)
 		return (ft_ray_vertical(data, ray));
 	else if (data->ray.angle > M_PI_2 && data->ray.angle < M_PI_2 * 3)
 	{
-		ray.coord.x = (((int)data->player.coord.x >> 5) << 5) - 0.0001;
+		ray.coord.x = (((int)data->player.coord.x >> 6) << 6) - 0.0001;
 		ray.coord.y = (data->player.coord.x - ray.coord.x)
 			* ntan + data->player.coord.y;
 		offset.x = -CUBE_SIZE;
@@ -73,7 +73,7 @@ t_ray	draw_ray_vertical(t_data *data)
 	}
 	else
 	{
-		ray.coord.x = (((int)data->player.coord.x >> 5) << 5) + CUBE_SIZE;
+		ray.coord.x = (((int)data->player.coord.x >> 6) << 6) + CUBE_SIZE;
 		ray.coord.y = (data->player.coord.x - ray.coord.x)
 			* ntan + data->player.coord.y;
 		offset.x = CUBE_SIZE;

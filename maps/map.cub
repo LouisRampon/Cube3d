@@ -1,7 +1,7 @@
 SO ./texture/redbrick.xpm
 WE  ./texture/mossy.xpm
 EA  ./texture/greystone.xpm
-NO ./texture/wood.xpm
+NO ./texture/eagle.xpm
 F 200,200,200
 C 255,100,100
 
@@ -11,7 +11,7 @@ C 255,100,100
 101000011
 10101001
 10100101
-1000W001
+1000S001
 10000001
 10000101
 10000001

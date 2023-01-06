@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 11:11:44 by lorampon          #+#    #+#             */
-/*   Updated: 2023/01/06 13:33:26 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/06 14:14:04 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ enum args {space = ' ', wall = '1', floor1 = '0', p_north = 'N',\
 
 # define WIDTH_WINDOW 960
 # define HEIGHT_WINDOW 512
-# define CUBE_SIZE 32
+# define CUBE_SIZE 64
 # define FOV 480
 # define MS 5
 # define TS 0.11
@@ -53,7 +53,7 @@ enum args {space = ' ', wall = '1', floor1 = '0', p_north = 'N',\
 # define ORANGE2 0xFF4900
 # define ORANGE3 0xFF4700
 
-# define DR 0.0174533 / 8
+# define DR 0.0021816616
 
 typedef struct s_arena
 {
