@@ -17,7 +17,7 @@ SRCS_MAIN_WITHOUT_PATH = main.c	\
 
 SRCS_PARSING_WITHOUT_PATH = ft_parsing.c			\
 							ft_parse_options.c		\
-							ft_parse_poption.C		\
+							ft_parse_option_help.c	\
 							ft_parse_map.c			\
 							ft_init_map.c			\
 							ft_init_list.c			\
@@ -26,10 +26,10 @@ SRCS_PARSING_WITHOUT_PATH = ft_parsing.c			\
 							ft_lst_to_tab.c			\
 
 
-SRCS_EXEC_WITHOUT_PATH =	move.c \
-							raycasting.c \
-							raycasting_h.c \
-							raycasting_v.c \
+SRCS_EXEC_WITHOUT_PATH =	move.c 			\
+							raycasting.c 	\
+							raycasting_h.c 	\
+							raycasting_v.c 	\
 							mlx_hook.c		\
 							display.c		\
 							draw.c 			\
@@ -40,8 +40,7 @@ SRCS_UTILS_WITHOUT_PATH = 	map_utils.c\
 							ft_free_tab.c			\
 							ft_error_exit.c			\
 							ft_count_char.c			\
-							ft_alloc.c				\
-							ft_arena_storage_pool.c	\
+
 
 OBJS_SRCS_MAIN_WITHOUT_PATH = $(SRCS_MAIN_WITHOUT_PATH:.c=.o)
 OBJS_SRCS_PARSING_WITHOUT_PATH = $(SRCS_PARSING_WITHOUT_PATH:.c=.o)
