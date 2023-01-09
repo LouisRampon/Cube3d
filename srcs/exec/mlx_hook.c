@@ -25,7 +25,7 @@ int	check_collision(t_data *data, double angle)
 	data->ray.angle = angle;
 	temp = farthest_ray(data, draw_ray_horizontal(data),
 			draw_ray_vertical(data));
-	if (temp.dist < MS * 5)
+	if (temp.dist < MS * 2)
 		return (1);
 	else
 		return (0);
