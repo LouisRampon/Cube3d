@@ -1,0 +1,12 @@
+
+C 255,0,0
+
+WE  ./texture/bluestone.xpm
+EA  ./texture/purplestone.xpm
+NO ./texture/eagle.xpm
+SO  ./texture/mossy.xpm
+F  0,00,255
+
+ 11
+01S01
+ 111

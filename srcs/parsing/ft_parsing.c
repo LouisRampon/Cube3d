@@ -55,6 +55,8 @@ void	ft_init_txt_and_colors(t_texture *tx, int fd)
 			break ;
 		line = get_next_line(fd);
 	}
+	if (tx->f_index > 1 || tx->c_index > 1)
+		ft_error_exit("Invalid");
 	if (!tx->north || !tx->south || !tx->east || !tx->west || \
 		!tx->c_index || !tx->f_index)
 		ft_error_exit("Invalid options\n");

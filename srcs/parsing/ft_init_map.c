@@ -44,7 +44,7 @@ void	ft_get_map_values(t_map *map, int fd)
 	while (str)
 	{
 		if (*str == '\n')
-			ft_error_exit("New line detected detected\n");
+			ft_error_exit("New line detected\n");
 		ft_add_node_to_lst(&map->lst, str);
 		if (map->width < (int)ft_strlen(str))
 			map->width = (int)ft_strlen(str);
