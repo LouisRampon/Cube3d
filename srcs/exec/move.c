@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 16:40:16 by lorampon          #+#    #+#             */
-/*   Updated: 2023/01/09 14:17:07 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/09 14:27:42 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	ft_move_left(t_data *data)
 	temp.x = data->player.coord.x + MS * cos(data->player.angle - M_PI_2);
 	temp.y = data->player.coord.y - MS * sin(data->player.angle + M_PI_2);
 	angle = data->player.angle - M_PI_2 - 0.01;
-	if (angle <= 0)
-		angle += (2 * M_PI_2);
+	if (angle < 0)
+		angle += (2 * M_PI);
 	if (check_collision(data, angle))
 		return ;
 	mlx_clear_window(data->mlx_ptr, data->mlx_win_ptr);
