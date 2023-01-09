@@ -19,14 +19,14 @@ void	ft_parse_rgb_help(t_texture *tx, char **tab, int flag)
 		tx->ceiling[0] = (int)ft_atoi(tab[0]);
 		tx->ceiling[1] = (int)ft_atoi(tab[1]);
 		tx->ceiling[2] = (int)ft_atoi(tab[2]);
-		tx->c_index = 1;
+		tx->c_index += 1;
 	}
 	else
 	{
 		tx->floor[0] = (int)ft_atoi(tab[0]);
 		tx->floor[1] = (int)ft_atoi(tab[1]);
 		tx->floor[2] = (int)ft_atoi(tab[2]);
-		tx->f_index = 1;
+		tx->f_index += 1;
 	}
 }
 
@@ -92,6 +92,8 @@ int	ft_parse_line(t_texture *tx, char *str)
 	tab = ft_split_charset(str, " \t");
 	if (!tab)
 		ft_error_exit("Split failed\n");
+	if (tab[2])
+		ft_error_exit("Format error\n");
 	identifier = tab[0];
 	if (!identifier)
 		ft_error_exit("Identifier is null\n");

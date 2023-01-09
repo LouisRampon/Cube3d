@@ -73,7 +73,7 @@ void	ft_check_player(t_map *map)
 	while (map->map[i][j])
 	{
 		if (map->map[i][j] == 'N' || map->map[i][j] == 'E' || \
-		map->map[i][j] == 'W' || map->map[i][j] == 'S')
+		map->map[i][j] == 'W' || map->map[i][j] == 'S' || map->map[i][j] == '0')
 			ft_error_exit("Map is not closed\n");
 		j++;
 	}
@@ -83,7 +83,8 @@ void	ft_check_player(t_map *map)
 		if (map->map[map->height - 1][j] == 'N' || \
 			map->map[map->height - 1][j] == 'E' || \
 			map->map[map->height - 1][j] == 'W' || \
-			map->map[map->height - 1][j] == 'S')
+			map->map[map->height - 1][j] == 'S' || \
+			map->map[map->height - 1][j] == '0')
 			ft_error_exit("Map is not closed\n");
 		j++;
 	}
