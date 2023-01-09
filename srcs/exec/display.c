@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 18:59:42 by lorampon          #+#    #+#             */
-/*   Updated: 2023/01/06 15:28:43 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/09 13:18:53 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,16 @@ double	ft_texture_offset(t_data *data)
 	{
 		if (data->ray.side == NORTH)
 			offset = (data->lineh - WIDTH_WINDOW)
-				/ (data->texture[NORTH].width / 32);
+				/ (2);
 		else if (data->ray.side == SOUTH)
 			offset = (data->lineh - WIDTH_WINDOW)
-				/ (data->texture[SOUTH].width / 32);
+				/ (2);
 		else if (data->ray.side == EAST)
 			offset = (data->lineh - WIDTH_WINDOW)
-				/ (data->texture[EAST].width / 32);
+				/ (2);
 		else if (data->ray.side == WEST)
 			offset = (data->lineh - WIDTH_WINDOW)
-				/ (data->texture[WEST].width / 32);
+				/ (2);
 		data->lineh = WIDTH_WINDOW;
 	}
 	else
@@ -99,11 +99,15 @@ double	ft_texture_offset(t_data *data)
 void	ft_set_ratio_x(t_data *data)
 {
 	if (data->ray.side == NORTH)
-		data->ratio.x = (int)(data->ray.coord.x) % data->texture[NORTH].width;
+		data->ratio.x = ((int)(data->ray.coord.x) % CUBE_SIZE)
+			* (data->texture[NORTH].width / CUBE_SIZE);
 	else if (data->ray.side == SOUTH)
-		data->ratio.x = (int)(data->ray.coord.x) % data->texture[SOUTH].width;
+		data->ratio.x = ((int)(data->ray.coord.x) % CUBE_SIZE)
+			* (data->texture[SOUTH].width / CUBE_SIZE);
 	else if (data->ray.side == EAST)
-		data->ratio.x = (int)(data->ray.coord.y) % data->texture[EAST].width;
+		data->ratio.x = ((int)(data->ray.coord.y) % CUBE_SIZE)
+			* (data->texture[EAST].width / CUBE_SIZE);
 	else if (data->ray.side == WEST)
-		data->ratio.x = (int)(data->ray.coord.y) % data->texture[WEST].width;
+		data->ratio.x = ((int)(data->ray.coord.y) % CUBE_SIZE)
+			* (data->texture[WEST].width / CUBE_SIZE);
 }

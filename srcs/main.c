@@ -6,11 +6,27 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 10:56:31 by lorampon          #+#    #+#             */
-/*   Updated: 2023/01/06 13:25:20 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/09 13:23:39 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+double	step_y(t_data *data)
+{
+	double	step_y;
+
+	step_y = 0.0;
+	if (data->ray.side == NORTH)
+		step_y = data->texture[NORTH].height / data->lineh;
+	else if (data->ray.side == SOUTH)
+		step_y = data->texture[NORTH].height / data->lineh;
+	else if (data->ray.side == EAST)
+		step_y = data->texture[NORTH].height / data->lineh;
+	else if (data->ray.side == WEST)
+		step_y = data->texture[NORTH].height / data->lineh;
+	return (step_y);
+}
 
 t_data	init_data(t_data *data)
 {
