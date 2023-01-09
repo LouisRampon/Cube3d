@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 11:11:44 by lorampon          #+#    #+#             */
-/*   Updated: 2023/01/06 14:45:17 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/09 13:21:25 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ int				get_text_pixel(t_image *text, int x, int y);
 int				ft_define_pxl_color(t_data *data);
 void			ft_2d_map(t_data *data);
 void			my_mlx_pixel_put(t_image *img, int x, int y, int color);
+double			step_y(t_data *data);
 
 unsigned int	ft_rgb(int r, int g, int b);
 unsigned int	my_mlx_pixel_get_color(t_image *data, int x, int y);

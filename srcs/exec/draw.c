@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 18:58:38 by lorampon          #+#    #+#             */
-/*   Updated: 2023/01/06 14:12:40 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/09 13:20:20 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ t_image	ft_draw_rect(t_data *data, double offsetx)
 	double	step_y;
 
 	y = 0;
-	step_y = data->texture[NORTH].width / data->lineh;
+	step_y = 64 / data->lineh;
 	data->ratio.y = ft_texture_offset(data) * step_y;
 	offsety = 256 - data->lineh / 2;
 	while (y < data->lineh)

@@ -6,7 +6,7 @@
 /*   By: lorampon <lorampon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 18:54:38 by lorampon          #+#    #+#             */
-/*   Updated: 2023/01/06 14:46:10 by lorampon         ###   ########.fr       */
+/*   Updated: 2023/01/09 13:37:10 by lorampon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_collision(t_data *data, double angle)
 	data->ray.angle = angle;
 	temp = farthest_ray(data, draw_ray_horizontal(data),
 			draw_ray_vertical(data));
-	if (temp.dist < MS * 3)
+	if (temp.dist < MS)
 		return (1);
 	else
 		return (0);
@@ -35,15 +35,15 @@ int	ft_key_hook(int keycode, t_data *data)
 {
 	if (keycode == W || keycode == KEY_UP)
 		ft_move_forward(data);
-	else if (keycode == A || keycode == KEY_DOWN)
+	else if (keycode == A)
 		ft_move_left(data);
-	else if (keycode == D || keycode == KEY_RIGHT)
+	else if (keycode == D)
 		ft_move_right(data);
-	else if (keycode == S || keycode == KEY_LEFT)
+	else if (keycode == S || keycode == KEY_DOWN)
 		ft_move_backward(data);
-	else if (keycode == Q)
+	else if (keycode == E || keycode == KEY_RIGHT)
 		ft_turn_left(data);
-	else if (keycode == E)
+	else if (keycode == Q || keycode == KEY_LEFT)
 		ft_turn_right(data);
 	else if (keycode == ESC || keycode == 17)
 		ft_exit(data);

@@ -1,8 +1,9 @@
 SO ./texture/redbrick.xpm
-WE  ./texture/mossy.xpm
+WE  ./texture/eagle.xpm
 EA  ./texture/greystone.xpm
-NO /Users/jereverd/CLionProjects/Cube3d/texture/eagle.xpm
-F 000,000,200
+NO ./texture/eagle.xpm
+NO ./texture/mossy.xpm
+F 200,200,200
 C 255,100,100
 
 
